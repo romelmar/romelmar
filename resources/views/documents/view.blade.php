@@ -174,16 +174,6 @@ fetchAllDocuments();
           var table = $('#myTable').DataTable({
             "order": [[ 2, "asc" ]],
             columnDefs: [
-                          // {
-                          //     "targets": [ 0 ],
-                          //     "visible": false,
-                          //     "searchable": false
-                          // },
-                          // {
-                          //     "targets": [ 5 ],
-                          //     "visible": false,
-                          //     "searchable": false
-                          // },
                           { orderable: false, targets: [2] }
                         ]
           });
