@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DocRoute;
+use App\Models\DocRoutes;
 use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\Log;
 
 class DocRouteController extends Controller
 {
@@ -14,7 +16,6 @@ class DocRouteController extends Controller
      */
     public function index()
     {
-        //
     }
 
     /**
@@ -22,9 +23,23 @@ class DocRouteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+
+        try {
+            $DocRoutes = new DocRoutes;
+            $DocRoutes->date_received = $request->date_received;
+            $DocRoutes->doc_id = $request->doc_id;
+            $DocRoutes->action = $request->action;
+            $DocRoutes->employee_id = $request->employee_id;
+            $DocRoutes->division_id = $request->division_id;
+
+            $DocRoutes->push(); // This will update both user and phone record in DB            
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'exception', 'msg' => $e->getMessage()]);
+        }
+
+        return response()->json(['status' => "success"]);
     }
 
     /**

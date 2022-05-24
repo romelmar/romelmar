@@ -1,0 +1,22 @@
+{
+    "sourceFile": "app/Http/Controllers/AutoCompleteController.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1653290580652,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1653290600994,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,9 @@\n <?php\n \n namespace App\\Http\\Controllers;\n \n+use App\\Models\\Division;\n use App\\Models\\DocType;\n use App\\Models\\Employee;\n use App\\Models\\Focal;\n use App\\Models\\MeansOfReceiving;\n@@ -26,10 +27,10 @@\n         $res    =   OriginOffice::select('*')\n           ->where(\"name\", \"LIKE\", \"%{$request->term}%\")\n           ->get();\n         break;\n-      case \"OriginOffice\":\n-        $res    =   OriginOffice::select('*')\n+      case \"Division\":\n+        $res    =   Division::select('*')\n           ->where(\"name\", \"LIKE\", \"%{$request->term}%\")\n           ->get();\n         break;\n       case \"mor\":\n"
+                }
+            ],
+            "date": 1653290580652,
+            "name": "Commit-0",
+            "content": "<?php\n\nnamespace App\\Http\\Controllers;\n\nuse App\\Models\\DocType;\nuse App\\Models\\Employee;\nuse App\\Models\\Focal;\nuse App\\Models\\MeansOfReceiving;\nuse Illuminate\\Http\\Request;\nuse Illuminate\\Support\\Facades\\DB;\nuse App\\Models\\OriginOffice;\nuse App\\Models\\Status;\nuse App\\Models\\Document;\nuse Carbon\\Carbon;\n\nclass AutoCompleteController extends Controller\n{\n  // public function index(){\n  //     return view('autocomplete-search');\n  // }\n\n  public function autocomplete(Request $request)\n  {\n    switch ($request->db) {\n      case \"OriginOffice\":\n        $res    =   OriginOffice::select('*')\n          ->where(\"name\", \"LIKE\", \"%{$request->term}%\")\n          ->get();\n        break;\n      case \"OriginOffice\":\n        $res    =   OriginOffice::select('*')\n          ->where(\"name\", \"LIKE\", \"%{$request->term}%\")\n          ->get();\n        break;\n      case \"mor\":\n        $res    =   MeansOfReceiving::select('*')\n          ->where(\"name\", \"LIKE\", \"%{$request->term}%\")\n          ->get();\n        break;\n      case \"doctype\":\n        $res    =   DocType::select('*')\n          ->where(\"name\", \"LIKE\", \"%{$request->term}%\")\n          ->get();\n        break;\n      case \"employee\":\n        $res    =   Employee::select(\"id\", DB::raw(\"CONCAT(firstname, ' ', lastname) as name\"))\n          ->where(\"firstname\", \"LIKE\", \"%{$request->term}%\")\n          ->get();\n        break;\n      case \"status\":\n        $res    =   Status::select('*')\n          ->where(\"name\", \"LIKE\", \"%{$request->term}%\")\n          ->get();\n        break;\n    }\n\n\n    return response()->json($res);\n  }\n\n  public function livesearch(Request $request)\n  {\n\n    $today =  Carbon::now('Asia/Manila')->format('Y-m-d');\n    switch ($request->db) {\n      case \"OriginOffice\":\n        $res    =   OriginOffice::select('*')\n          ->where(\"name\", \"LIKE\", \"%{$request->term}%\")\n          ->get();\n        break;\n      case \"mor\":\n        $res    =   MeansOfReceiving::select('*')\n          ->where(\"name\", \"LIKE\", \"%{$request->term}%\")\n          ->get();\n        break;\n      case \"doctype\":\n        $res    =   DocType::select('*')\n          ->where(\"name\", \"LIKE\", \"%{$request->term}%\")\n          ->get();\n        break;\n      case \"employee\":\n        $res    =   Employee::select(\"id\", DB::raw(\"CONCAT(firstname, ' ', lastname) as name\"))\n          ->where(\"firstname\", \"LIKE\", \"%{$request->term}%\")\n          ->get();\n        break;\n      case \"status\":\n        if (strlen($request->term) > 0) {\n          $res    =   Document::select('*')\n            ->where(\"subject\", \"LIKE\", \"%{$request->term}%\")\n            ->get();\n        } else {\n          $res    =   Document::select('*')\n            // ->where(\"subject\",\"LIKE\",\"%%\")\n            ->get();\n        }\n\n\n\n        break;\n    }\n\n\n    return response()->json($res);\n  }\n}\n"
+        }
+    ]
+}

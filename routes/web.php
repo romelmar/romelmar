@@ -5,6 +5,7 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\OriginOfficeController;
 use App\Http\Controllers\AutoCompleteController;
 use App\Http\Controllers\DivisionController;
+use App\Http\Controllers\DocRouteController;
 use App\Http\Controllers\DocTypeController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\MeansOfReceivingController;
@@ -16,6 +17,7 @@ use App\Models\DocType;
 use App\Models\images;
 use App\Models\MeansOfReceiving;
 use App\Http\Controllers\PDFController;
+use App\Models\DocRoutes;
 
 /*
 |--------------------------------------------------------------------------
@@ -84,6 +86,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('mor', MeansOfReceivingController::class);
 	Route::resource('statuses', StatusController::class);
 	Route::resource('employees', EmployeeController::class);
+	// Route::resource('docroutes', DocRouteController::class);
 
 	// ------------------------------ Documents ----------------------------------------
 	Route::get('overdues', [DocumentController::class, 'overdues'])->name('overdues');
@@ -93,6 +96,12 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::put('/doc_update', [DocumentController::class, 'update'])->name('update.doc');
 
 	Route::post('store-file', [DocumentController::class, 'storeFile'])->name('document.store_file');
+	
+	Route::post('doc_routes', [DocRouteController::class, 'create'])->name('docroutes.create');
+
+
+	// ----------------------------------- Doc Route -----------------------------------------------
+
 
 	// --------------------------- SEARCH ------------------------------------------
 	Route::get('search', [AutoCompleteController::class, 'index'])->name('search');
@@ -125,7 +134,7 @@ Route::get('download-pdf', [PDFController::class, 'downloadPDF']);
 // --------------------------------- ajax ----------------------------------------------
 // Route::post('/store', [EmployeeController::class, 'store'])->name('store');
 Route::get('/fetchall', [DocumentController::class, 'fetchAll'])->name('fetchAll');
-Route::get('/fetchallroute', [DocumentController::class, 'fetchAllRoute'])->name('fetchAllRoute');
+Route::get('/fetchallroute/{doc_id}', [DocumentController::class, 'fetchAllRoute'])->name('fetchAllRoute');
 Route::delete('/delete', [EmployeeController::class, 'delete'])->name('delete');
 Route::get('/edit', [EmployeeController::class, 'edit'])->name('edit');
 Route::post('/update', [EmployeeController::class, 'update'])->name('update');

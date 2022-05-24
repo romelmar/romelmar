@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class DocRoutes extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'date_received',
+        // 'status_id'
+    ];
+
+
     public function document(){
         return $this->belongsTo(Document::class, 'doc_id');
     }

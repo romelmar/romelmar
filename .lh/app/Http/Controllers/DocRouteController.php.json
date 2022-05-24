@@ -1,0 +1,98 @@
+{
+    "sourceFile": "app/Http/Controllers/DocRouteController.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 20,
+            "patches": [
+                {
+                    "date": 1653355609662,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1653357034489,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,10 +21,12 @@\n      * Show the form for creating a new resource.\n      *\n      * @return \\Illuminate\\Http\\Response\n      */\n-    public function create()\n+    public function create(Request $request)\n     {\n+                    $input = $request->all();\n+            Log::info($input);\n         return response()->json(['status' => \"success\"]);\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1653357055328,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,8 +4,10 @@\n \n use App\\Models\\DocRoute;\n use Illuminate\\Http\\Request;\n \n+use Illuminate\\Support\\Facades\\Log;\n+\n class DocRouteController extends Controller\n {\n     /**\n      * Display a listing of the resource.\n"
+                },
+                {
+                    "date": 1653357852039,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,11 +25,11 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function create(Request $request)\n     {\n-                    $input = $request->all();\n-            Log::info($input);\n-        return response()->json(['status' => \"success\"]);\n+        //             $input = $request->all();\n+        //     Log::info($input);\n+        // return response()->json(['status' => \"success\"]);\n     }\n \n     /**\n      * Store a newly created resource in storage.\n"
+                },
+                {
+                    "date": 1653358292909,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,9 +27,9 @@\n     public function create(Request $request)\n     {\n         //             $input = $request->all();\n         //     Log::info($input);\n-        // return response()->json(['status' => \"success\"]);\n+        return response()->json(['status' => \"success\"]);\n     }\n \n     /**\n      * Store a newly created resource in storage.\n"
+                },
+                {
+                    "date": 1653359158829,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,10 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function index()\n     {\n-        //\n+        $msg = \"This is a simple message.\";\n+      return response()->json(array('msg'=> $msg), 200);\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1653363781700,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,10 +15,9 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function index()\n     {\n-        $msg = \"This is a simple message.\";\n-      return response()->json(array('msg'=> $msg), 200);\n+\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1653364411007,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,10 +25,10 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function create(Request $request)\n     {\n-        //             $input = $request->all();\n-        //     Log::info($input);\n+                    $input = $request->all();\n+            Log::info($input);\n         return response()->json(['status' => \"success\"]);\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1653364419444,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,8 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function index()\n     {\n-\n     }\n \n     /**\n      * Show the form for creating a new resource.\n@@ -25,10 +24,10 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function create(Request $request)\n     {\n-                    $input = $request->all();\n-            Log::info($input);\n+        $input = $request->all();\n+        Log::info($input);\n         return response()->json(['status' => \"success\"]);\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1653365244482,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,10 +24,9 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function create(Request $request)\n     {\n-        $input = $request->all();\n-        Log::info($input);\n+\n         return response()->json(['status' => \"success\"]);\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1653365285486,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,9 +24,9 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function create(Request $request)\n     {\n-\n+        DocRoute::create($request->all());\n         return response()->json(['status' => \"success\"]);\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1653369583911,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,9 +24,10 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function create(Request $request)\n     {\n-        DocRoute::create($request->all());\n+        $input = $request->all();\n+        Log::info($input);\n         return response()->json(['status' => \"success\"]);\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1653369799704,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,8 +26,10 @@\n     public function create(Request $request)\n     {\n         $input = $request->all();\n         Log::info($input);\n+\n+        DocRoute::create($input);\n         return response()->json(['status' => \"success\"]);\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1653370514394,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n <?php\n \n namespace App\\Http\\Controllers;\n \n-use App\\Models\\DocRoute;\n+use App\\Models\\DocRoutes;\n use Illuminate\\Http\\Request;\n \n use Illuminate\\Support\\Facades\\Log;\n \n"
+                },
+                {
+                    "date": 1653370522906,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,9 +27,9 @@\n     {\n         $input = $request->all();\n         Log::info($input);\n \n-        DocRoute::create($input);\n+        DocRoutes::create($input);\n         return response()->json(['status' => \"success\"]);\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1653370555993,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,9 +27,9 @@\n     {\n         $input = $request->all();\n         Log::info($input);\n \n-        DocRoutes::create($input);\n+        // DocRoutes::create($input);\n         return response()->json(['status' => \"success\"]);\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1653370944546,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,8 +28,14 @@\n         $input = $request->all();\n         Log::info($input);\n \n         // DocRoutes::create($input);\n+        try {\n+            \n+        } catch (\\Exception $e) {\n+            return response()->json(['status' => 'exception', 'msg' => $e->getMessage()]);\n+        }\n+\n         return response()->json(['status' => \"success\"]);\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1653371016499,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,9 +29,19 @@\n         Log::info($input);\n \n         // DocRoutes::create($input);\n         try {\n-            \n+            $DocRoutes = new DocRoutes;\n+            $DocRoutes->origin_id = $origin_id;\n+            $DocRoutes->mor_id = $mor_id;\n+            $DocRoutes->doctype_id  = $doctype_id;\n+            $DocRoutes->employee_id  = $employee_id;\n+            $DocRoutes->date_received = $request->date_received;\n+            $DocRoutes->control_number = $request->control_number;\n+            $DocRoutes->subject = $request->subject;\n+            $DocRoutes->deadline = $request->deadline;\n+\n+            $DocRoutes->push(); // This will update both user and phone record in DB            \n         } catch (\\Exception $e) {\n             return response()->json(['status' => 'exception', 'msg' => $e->getMessage()]);\n         }\n \n"
+                },
+                {
+                    "date": 1653371094426,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -30,12 +30,8 @@\n \n         // DocRoutes::create($input);\n         try {\n             $DocRoutes = new DocRoutes;\n-            $DocRoutes->origin_id = $origin_id;\n-            $DocRoutes->mor_id = $mor_id;\n-            $DocRoutes->doctype_id  = $doctype_id;\n-            $DocRoutes->employee_id  = $employee_id;\n             $DocRoutes->date_received = $request->date_received;\n             $DocRoutes->control_number = $request->control_number;\n             $DocRoutes->subject = $request->subject;\n             $DocRoutes->deadline = $request->deadline;\n"
+                },
+                {
+                    "date": 1653371137670,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -31,11 +31,12 @@\n         // DocRoutes::create($input);\n         try {\n             $DocRoutes = new DocRoutes;\n             $DocRoutes->date_received = $request->date_received;\n-            $DocRoutes->control_number = $request->control_number;\n-            $DocRoutes->subject = $request->subject;\n-            $DocRoutes->deadline = $request->deadline;\n+            $DocRoutes->doc_id = $request->doc_id;\n+            $DocRoutes->action = $request->action;\n+            $DocRoutes->employee_id = $request->employee_id;\n+            $DocRoutes->division_id = $request->division_id;\n \n             $DocRoutes->push(); // This will update both user and phone record in DB            \n         } catch (\\Exception $e) {\n             return response()->json(['status' => 'exception', 'msg' => $e->getMessage()]);\n"
+                },
+                {
+                    "date": 1653373821582,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,12 +24,9 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function create(Request $request)\n     {\n-        $input = $request->all();\n-        Log::info($input);\n \n-        // DocRoutes::create($input);\n         try {\n             $DocRoutes = new DocRoutes;\n             $DocRoutes->date_received = $request->date_received;\n             $DocRoutes->doc_id = $request->doc_id;\n"
+                }
+            ],
+            "date": 1653355609662,
+            "name": "Commit-0",
+            "content": "<?php\n\nnamespace App\\Http\\Controllers;\n\nuse App\\Models\\DocRoute;\nuse Illuminate\\Http\\Request;\n\nclass DocRouteController extends Controller\n{\n    /**\n     * Display a listing of the resource.\n     *\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function index()\n    {\n        //\n    }\n\n    /**\n     * Show the form for creating a new resource.\n     *\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function create()\n    {\n        return response()->json(['status' => \"success\"]);\n    }\n\n    /**\n     * Store a newly created resource in storage.\n     *\n     * @param  \\Illuminate\\Http\\Request  $request\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function store(Request $request)\n    {\n        //\n    }\n\n    /**\n     * Display the specified resource.\n     *\n     * @param  \\App\\Models\\DocRoute  $docRoute\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function show(DocRoute $docRoute)\n    {\n        //\n    }\n\n    /**\n     * Show the form for editing the specified resource.\n     *\n     * @param  \\App\\Models\\DocRoute  $docRoute\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function edit(DocRoute $docRoute)\n    {\n        //\n    }\n\n    /**\n     * Update the specified resource in storage.\n     *\n     * @param  \\Illuminate\\Http\\Request  $request\n     * @param  \\App\\Models\\DocRoute  $docRoute\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function update(Request $request, DocRoute $docRoute)\n    {\n        //\n    }\n\n    /**\n     * Remove the specified resource from storage.\n     *\n     * @param  \\App\\Models\\DocRoute  $docRoute\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function destroy(DocRoute $docRoute)\n    {\n        //\n    }\n}\n"
+        }
+    ]
+}

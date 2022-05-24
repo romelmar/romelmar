@@ -1,7 +1,7 @@
 @extends('layouts.app', ['activePage' => 'dashboard', 'titlePage' => __('Document')])
 @section('content')
     <div class="content">
-        <div class="container-fluid"> 
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card form-wrap">
@@ -17,7 +17,7 @@
                                                     <small class="text-muted">{{ __('As of ') . now() }}</small>
                                                     {{-- <p><span class="text-muted">{{ $document->get_status() }}</span></p> --}}
                                                 </div>
-                                                
+
 
                                             </li>
                                             <li class="list-group-item d-flex justify-content-between lh-sm">
@@ -31,8 +31,7 @@
                                                 class="list-group-item d-flex justify-content-between lh-sm bg-{{ $document->expired() }} deadline">
                                                 <div>
                                                     <h6 class="my-0">{{ __('Deadline / Schedule') }}</h6>
-                                                    <small
-                                                        class="text-muted">{{ $document->required_action }}</small>
+                                                    <small class="text-muted">{{ $document->required_action }}</small>
                                                 </div>
                                                 <span class="text-muted">{{ $document->deadline }}</span>
                                             </li>
@@ -73,22 +72,26 @@
                                     </div>
                                     <div class="col-md-7 col-lg-8">
                                         <div class="card shadow">
-                                          <div class="card-header card-header-primary d-flex justify-content-between align-items-center">
-                                            <h3 class="text-light">{{ __('Routes - ' . $document->subject . " (".$document->origin_office->name.")")}}</h3>
-                                            {{-- <button type="button"  class="btn btn-light"  data-toggle="modal" data-target="#addDocumentModal"> --}}
-                                            <button type="button"  class="btn btn-light"  data-toggle="modal" data-target="#addRouteModal">
-                                              <i class="bi-plus-circle me-2"></i> Add</button>
-                                          </div>
-                                          
-                                          <div class="card-body " id="show_all_documents">
-                                            @include('layouts.components.loader')
-                                           
-                                          </div>
+                                            <div
+                                                class="card-header card-header-primary d-flex justify-content-between align-items-center">
+                                                <h3 class="text-light">
+                                                    {{ __('Routes - ' . $document->subject . ' (' . $document->origin_office->name . ')') }}
+                                                </h3>
+                                                {{-- <button type="button"  class="btn btn-light"  data-toggle="modal" data-target="#addDocumentModal"> --}}
+                                                <button type="button" class="btn btn-light" data-toggle="modal"
+                                                    data-target="#addRouteModal">
+                                                    <i class="bi-plus-circle me-2"></i> Add</button>
+                                            </div>
+
+                                            <div class="card-body " id="show_all_documents">
+                                                @include('layouts.components.loader')
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                        </main>
-                      </div>
+                            </main>
+                        </div>
                         <div id="example1"></div>
 
                     </div>
@@ -102,7 +105,6 @@
 
     @include('modal.view_pdf')
     @include('modal.add_route')
-
 @endsection
 @push('js')
     <script src="https://unpkg.com/pdfobject@2.2.7/pdfobject.min.js"></script>
@@ -134,55 +136,79 @@
             }
         });
 
-        // $(".btn-submitAjax").click(function(e) {
+        $("#addRoute").click(function(e) {
 
-        //     e.preventDefault();
+            e.preventDefault();
+            $(this).text('Updating...');
+            // formData = $('#add_route_form').serialize();
+            URL = $("#add_route_form").attr('action');
 
-        //     var title = $("input[name=title]").val();
-        //     var details = $("input[name=details]").val();
-        //     var url = '{{ url('postinsert') }}';
+            var date_received = $("input[name=date_received]").val();
+            var doc_id = $("input[name=doc_id]").val();
+            var employee_id = $("input[name=employee_id]").val();
+            var division_id = $("input[name=division_id]").val();
+            var action = $("textarea[name=action]").val();
 
-        //     $.ajax({
-        //         url: url,
-        //         method: 'POST',
-        //         data: {
-        //             Code: title,
-        //             Chief: details
-        //         },
-        //         success: function(response) {
-        //             if (response.success) {
-        //                 alert(response.message) //Message come from controller
-        //             } else {
-        //                 alert("Error")
-        //             }
-        //         },
-        //         error: function(error) {
-        //             console.log(error)
-        //         }
-        //     });
-        // });
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('docroutes.create') }}",
+                // data: formData,
+                data: {
+                    date_received: date_received,
+                    doc_id: doc_id,
+                    action: action,
+                    employee_id: employee_id,
+                    division_id: division_id,
+                },
+                success: function(response) {
+                    // if (response.status) {
+                    //     alert(response.status) //Message come from controller
+                    // } else {
+                    //     alert("Error")
+                    // }
 
-// ----------------------------------------------------------------
-fetchAllDocuments();
+                    if (response.status == "success") {
+                        Swal.fire(
+                            'Updated!',
+                            'Document Route Updated Successfully!',
+                            'success'
+                        )
+                        fetchAllRoutes();
+                    }
+                    $("#addRouteModal").modal('hide');
+                    $("button#addRoute").text('Update Document');
+                    $("#add_route_form")[0].reset();
+                },
+                error: function(error) {
+                    console.log(error)
+                }
+            });
+        });
 
-    function fetchAllDocuments() {
-      $.ajax({
-        url: '{{ route('fetchAllRoute') }}',
-        method: 'get',
-        success: function(response) {
-          $("#show_all_documents").html(response);
-          var table = $('#myTable').DataTable({
-            "order": [[ 2, "asc" ]],
-            columnDefs: [
-                          { orderable: false, targets: [2] }
-                        ]
-          });
+        // ----------------------------------------------------------------
+        fetchAllRoutes();
 
-          table.columns().iterator('column', function (ctx, idx) {
-          $(table.column(idx).header()).prepend('<span class="sort-icon"/>');
-    });
+        function fetchAllRoutes() {
+            $.ajax({
+                url: '{{ route('fetchAllRoute',$document->id) }}',
+                method: 'get',
+                success: function(response) {
+                    $("#show_all_documents").html(response);
+                    var table = $('#myTable').DataTable({
+                        "order": [
+                            [1, "desc"]
+                        ],
+                        columnDefs: [{
+                            orderable: false,
+                            targets: [2]
+                        }]
+                    });
+
+                    table.columns().iterator('column', function(ctx, idx) {
+                        $(table.column(idx).header()).prepend('<span class="sort-icon"/>');
+                    });
+                }
+            });
         }
-      });
-    }
     </script>
 @endpush

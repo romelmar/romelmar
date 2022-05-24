@@ -1,0 +1,18 @@
+{
+    "sourceFile": "app/Models/DocRoute.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1653365633574,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1653365633574,
+            "name": "Commit-0",
+            "content": "<?php\n\nnamespace App\\Models;\n\nuse Illuminate\\Database\\Eloquent\\Factories\\HasFactory;\nuse Illuminate\\Database\\Eloquent\\Model;\n\nclass DocRoute extends Model\n{\n    use HasFactory;\n    protected $fillable = [\n        'date_received',\n        // 'status_id'\n    ];\n\n\n    public function document(){\n        return $this->belongsTo(Document::class, 'doc_id');\n    }\n\n    public function employee(){\n        return $this->belongsTo(Employee::class);\n    }\n\n    public function division(){\n        return $this->belongsTo(Division::class);\n    }\n}\n"
+        }
+    ]
+}

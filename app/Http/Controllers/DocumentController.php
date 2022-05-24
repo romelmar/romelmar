@@ -110,10 +110,10 @@ class DocumentController extends Controller
         }
     }
 
-    public function fetchAllRoute()
+    public function fetchAllRoute($doc_id)
     {
-        // $docs = Document::all();
-        $docRoutes = DocRoutes::all();
+        // $docRoutes = DocRoutes::all();
+        $docRoutes = DocRoutes::where('doc_id',$doc_id)->get();
         
         $fields = [
             'Division',
@@ -137,7 +137,7 @@ class DocumentController extends Controller
 
                 $output .= '<tr>
                 <td><p class="title">' . $docRoute->division->name . '</p><small>'.$docRoute->employee->fullname().'</small></td>
-                <td><p class="title">' . $docRoute->action . '</p><small>'.$docRoute->created_at->format('m/d/Y').'</small></td>
+                <td><small>'. $docRoute->date_received.'</small><p class="title">' .$docRoute->action. '</p></td>
 
                 <td>
                         <button type="button" id="' . $docRoute->id . '"  class="btn text-success mx-1 editIcon editDoc"  data-toggle="modal" data-target="#editDocumentModal">
