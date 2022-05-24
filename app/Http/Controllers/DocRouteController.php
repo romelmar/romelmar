@@ -59,7 +59,7 @@ class DocRouteController extends Controller
      * @param  \App\Models\DocRoute  $docRoute
      * @return \Illuminate\Http\Response
      */
-    public function show(DocRoute $docRoute)
+    public function show(DocRoutes $docRoute)
     {
         //
     }
@@ -70,9 +70,27 @@ class DocRouteController extends Controller
      * @param  \App\Models\DocRoute  $docRoute
      * @return \Illuminate\Http\Response
      */
-    public function edit(DocRoute $docRoute)
+    public function edit(Request $request)
     {
-        //
+        
+        $where = array('id' => $request->id);
+        $docRoutes  = DocRoutes::where($where)->first();
+        $division = DocRoutes::find($request->id)->division->name;
+        $focal = DocRoutes::find($request->id)->employee->fullname();
+        $date_received = DocRoutes::find($request->id)->date_received;
+        $action = DocRoutes::find($request->id)->action;
+
+        $collection = collect($docRoutes[0]);
+        Log::info($docRoutes[0]);
+        
+        return response()->json([
+            'status' => "success",
+            $docRoutes,
+            'division' =>  $division,
+            'employee' =>  $focal,
+            'date_received' =>  $date_received,
+            'action' =>  $action,
+        ]);
     }
 
     /**
@@ -82,7 +100,7 @@ class DocRouteController extends Controller
      * @param  \App\Models\DocRoute  $docRoute
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DocRoute $docRoute)
+    public function update(Request $request, DocRoutes $docRoute)
     {
         //
     }
@@ -93,7 +111,7 @@ class DocRouteController extends Controller
      * @param  \App\Models\DocRoute  $docRoute
      * @return \Illuminate\Http\Response
      */
-    public function destroy(DocRoute $docRoute)
+    public function destroy(DocRoutes $docRoute)
     {
         //
     }

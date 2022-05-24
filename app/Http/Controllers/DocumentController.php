@@ -140,7 +140,7 @@ class DocumentController extends Controller
                 <td><small>'. $docRoute->date_received.'</small><p class="title">' .$docRoute->action. '</p></td>
 
                 <td>
-                        <button type="button" id="' . $docRoute->id . '"  class="btn text-success mx-1 editIcon editDoc"  data-toggle="modal" data-target="#editDocumentModal">
+                        <button type="button" id="' . $docRoute->id . '"  class="btn text-success mx-1 editIcon editDoc"  data-toggle="modal" data-target="#editRouteModal">
                         <i class="bi-pencil-square h4"></i>
                         </button>
                 </td>
@@ -480,19 +480,6 @@ class DocumentController extends Controller
     public function edit(Request $request)
     {
         $input = $request->all();
-        // $images = Document::find($document->id)->images;
-
-
-        // $today =  Carbon::now('Asia/Manila')->format('Y-m-d');
-        // $overdues  =  Document::all()->where("deadline", "<", $today)->count();
-        // $dueToday  =  Document::all()->where("deadline", "==", $today)->count();
-        // $recent  =  Document::all()->where("deadline", ">", $today)->count();
-
-        // 'origin_id' => $origin_id,
-        // 'employee_id' => $employee_id,
-        // 'mor_id' => $mor_id,
-        // 'doctype_id' => $doctype_id
-
         $where = array('id' => $request->id);
         $document  = Document::where($where)->first();
         $origin = Document::find($request->id)->origin_office->name;
@@ -505,11 +492,6 @@ class DocumentController extends Controller
 
         $merged = $collection->merge($origin);
 
-        // $merged->all();
-
-        // Log::info( $document );
-
-        // return Response::json($document);
         return response()->json([
             'status' => 200,
             $document,

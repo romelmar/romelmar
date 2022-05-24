@@ -63,11 +63,8 @@
                                                             </a>
                                                         </li>
                                                     @endforeach
-
                                                 </ul>
-
                                             </li>
-
                                         </ul>
                                     </div>
                                     <div class="col-md-7 col-lg-8">
@@ -77,7 +74,6 @@
                                                 <h3 class="text-light">
                                                     {{ __('Routes - ' . $document->subject . ' (' . $document->origin_office->name . ')') }}
                                                 </h3>
-                                                {{-- <button type="button"  class="btn btn-light"  data-toggle="modal" data-target="#addDocumentModal"> --}}
                                                 <button type="button" class="btn btn-light" data-toggle="modal"
                                                     data-target="#addRouteModal">
                                                     <i class="bi-plus-circle me-2"></i> Add</button>
@@ -105,6 +101,7 @@
 
     @include('modal.view_pdf')
     @include('modal.add_route')
+    @include('modal.edit_route')
 @endsection
 @push('js')
     <script src="https://unpkg.com/pdfobject@2.2.7/pdfobject.min.js"></script>
@@ -140,7 +137,6 @@
 
             e.preventDefault();
             $(this).text('Updating...');
-            // formData = $('#add_route_form').serialize();
             URL = $("#add_route_form").attr('action');
 
             var date_received = $("input[name=date_received]").val();
@@ -152,7 +148,6 @@
             $.ajax({
                 type: 'POST',
                 url: "{{ route('docroutes.create') }}",
-                // data: formData,
                 data: {
                     date_received: date_received,
                     doc_id: doc_id,
@@ -161,12 +156,6 @@
                     division_id: division_id,
                 },
                 success: function(response) {
-                    // if (response.status) {
-                    //     alert(response.status) //Message come from controller
-                    // } else {
-                    //     alert("Error")
-                    // }
-
                     if (response.status == "success") {
                         Swal.fire(
                             'Updated!',
@@ -185,12 +174,44 @@
             });
         });
 
+// ----------------------- edit -------------------------------------------
+$(document).on('click', '.editIcon', function(e) {
+            e.preventDefault();
+
+            let id = $(this).attr('id');
+            $.ajax({
+                url: "{{ route('edit.doc_route') }}",
+                method: 'get',
+                data: {
+                    id: id,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+
+                    dr = response[0].date_received;
+                    console.log(response);
+                    for (let x in response[0]) {
+
+                        var el = document.querySelector('#updateDocument');
+                        el.setAttribute('data-id', id);
+
+                        if (x.search("_id") < 0) $("#editRouteModal #" + x).val(response[0][x]);
+                        else {
+                            name = x.replace('_id', '');
+
+                            $("#editRouteModal input[name='" + x + "'").val(response[0][x]);
+                            $("#editRouteModal #" + x).val(response[name]);
+                        }
+                    }
+                }
+            });
+        });        
         // ----------------------------------------------------------------
         fetchAllRoutes();
 
         function fetchAllRoutes() {
             $.ajax({
-                url: '{{ route('fetchAllRoute',$document->id) }}',
+                url: '{{ route('fetchAllRoute', $document->id) }}',
                 method: 'get',
                 success: function(response) {
                     $("#show_all_documents").html(response);

@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 46,
+            "activePatchIndex": 56,
             "patches": [
                 {
                     "date": 1653275192935,
@@ -192,6 +192,46 @@
                 {
                     "date": 1653374650277,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -189,9 +189,9 @@\n         fetchAllRoutes();\n \n         function fetchAllRoutes() {\n             $.ajax({\n-                url: '{{ route('fetchAllRoute',26) }}',\n+                url: '{{ route('fetchAllRoute',$document->id) }}',\n                 method: 'get',\n                 success: function(response) {\n                     $(\"#show_all_documents\").html(response);\n                     var table = $('#myTable').DataTable({\n"
+                },
+                {
+                    "date": 1653379536740,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -160,14 +160,8 @@\n                     employee_id: employee_id,\n                     division_id: division_id,\n                 },\n                 success: function(response) {\n-                    // if (response.status) {\n-                    //     alert(response.status) //Message come from controller\n-                    // } else {\n-                    //     alert(\"Error\")\n-                    // }\n-\n                     if (response.status == \"success\") {\n                         Swal.fire(\n                             'Updated!',\n                             'Document Route Updated Successfully!',\n"
+                },
+                {
+                    "date": 1653379546794,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -139,9 +139,8 @@\n         $(\"#addRoute\").click(function(e) {\n \n             e.preventDefault();\n             $(this).text('Updating...');\n-            // formData = $('#add_route_form').serialize();\n             URL = $(\"#add_route_form\").attr('action');\n \n             var date_received = $(\"input[name=date_received]\").val();\n             var doc_id = $(\"input[name=doc_id]\").val();\n@@ -151,9 +150,8 @@\n \n             $.ajax({\n                 type: 'POST',\n                 url: \"{{ route('docroutes.create') }}\",\n-                // data: formData,\n                 data: {\n                     date_received: date_received,\n                     doc_id: doc_id,\n                     action: action,\n"
+                },
+                {
+                    "date": 1653379556930,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -62,13 +62,10 @@\n                                                                     class=\"material-icons text-danger\">attachment</i>{{ $image->image_path }}\n                                                             </a>\n                                                         </li>\n                                                     @endforeach\n-\n                                                 </ul>\n-\n                                             </li>\n-\n                                         </ul>\n                                     </div>\n                                     <div class=\"col-md-7 col-lg-8\">\n                                         <div class=\"card shadow\">\n@@ -181,9 +178,9 @@\n         fetchAllRoutes();\n \n         function fetchAllRoutes() {\n             $.ajax({\n-                url: '{{ route('fetchAllRoute',$document->id) }}',\n+                url: '{{ route('fetchAllRoute', $document->id) }}',\n                 method: 'get',\n                 success: function(response) {\n                     $(\"#show_all_documents\").html(response);\n                     var table = $('#myTable').DataTable({\n"
+                },
+                {
+                    "date": 1653379578620,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -101,8 +101,9 @@\n     </div>\n \n     @include('modal.view_pdf')\n     @include('modal.add_route')\n+    @include('modal.edit_route')\n @endsection\n @push('js')\n     <script src=\"https://unpkg.com/pdfobject@2.2.7/pdfobject.min.js\"></script>\n     <script>\n"
+                },
+                {
+                    "date": 1653379603350,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -73,9 +73,8 @@\n                                                 class=\"card-header card-header-primary d-flex justify-content-between align-items-center\">\n                                                 <h3 class=\"text-light\">\n                                                     {{ __('Routes - ' . $document->subject . ' (' . $document->origin_office->name . ')') }}\n                                                 </h3>\n-                                                {{-- <button type=\"button\"  class=\"btn btn-light\"  data-toggle=\"modal\" data-target=\"#addDocumentModal\"> --}}\n                                                 <button type=\"button\" class=\"btn btn-light\" data-toggle=\"modal\"\n                                                     data-target=\"#addRouteModal\">\n                                                     <i class=\"bi-plus-circle me-2\"></i> Add</button>\n                                             </div>\n"
+                },
+                {
+                    "date": 1653380016233,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -173,8 +173,39 @@\n                 }\n             });\n         });\n \n+// ----------------------- edit -------------------------------------------\n+$(document).on('click', '.editIcon', function(e) {\n+            e.preventDefault();\n+\n+            let id = $(this).attr('id');\n+            $.ajax({\n+                url: \"{{ route('edit.doc_route') }}\",\n+                method: 'get',\n+                data: {\n+                    id: id,\n+                    _token: '{{ csrf_token() }}'\n+                },\n+                success: function(response) {\n+\n+                    dr = response[0].date_received;\n+                    for (let x in response[0]) {\n+\n+                        var el = document.querySelector('#updateDocument');\n+                        el.setAttribute('data-id', id);\n+\n+                        if (x.search(\"_id\") < 0) $(\"#editDocumentModal #\" + x).val(response[0][x]);\n+                        else {\n+                            name = x.replace('_id', '');\n+\n+                            $(\"#editDocumentModal input[name='\" + x + \"'\").val(response[0][x]);\n+                            $(\"#editDocumentModal #\" + x).val(response[name]);\n+                        }\n+                    }\n+                }\n+            });\n+        });        \n         // ----------------------------------------------------------------\n         fetchAllRoutes();\n \n         function fetchAllRoutes() {\n"
+                },
+                {
+                    "date": 1653380187998,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -179,9 +179,9 @@\n             e.preventDefault();\n \n             let id = $(this).attr('id');\n             $.ajax({\n-                url: \"{{ route('edit.doc_route') }}\",\n+                url: \"{{ route('edit.doc_route', $document->id) }}\",\n                 method: 'get',\n                 data: {\n                     id: id,\n                     _token: '{{ csrf_token() }}'\n"
+                },
+                {
+                    "date": 1653380521670,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -179,9 +179,9 @@\n             e.preventDefault();\n \n             let id = $(this).attr('id');\n             $.ajax({\n-                url: \"{{ route('edit.doc_route', $document->id) }}\",\n+                url: \"{{ route('edit.doc_route') }}\",\n                 method: 'get',\n                 data: {\n                     id: id,\n                     _token: '{{ csrf_token() }}'\n"
+                },
+                {
+                    "date": 1653382906020,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -193,14 +193,14 @@\n \n                         var el = document.querySelector('#updateDocument');\n                         el.setAttribute('data-id', id);\n \n-                        if (x.search(\"_id\") < 0) $(\"#editDocumentModal #\" + x).val(response[0][x]);\n+                        if (x.search(\"_id\") < 0) $(\"#editRouteModal #\" + x).val(response[0][x]);\n                         else {\n                             name = x.replace('_id', '');\n \n-                            $(\"#editDocumentModal input[name='\" + x + \"'\").val(response[0][x]);\n-                            $(\"#editDocumentModal #\" + x).val(response[name]);\n+                            $(\"#editRouteModal input[name='\" + x + \"'\").val(response[0][x]);\n+                            $(\"#editRouteModal #\" + x).val(response[name]);\n                         }\n                     }\n                 }\n             });\n"
+                },
+                {
+                    "date": 1653382937466,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -188,8 +188,9 @@\n                 },\n                 success: function(response) {\n \n                     dr = response[0].date_received;\n+                    console.log(response);\n                     for (let x in response[0]) {\n \n                         var el = document.querySelector('#updateDocument');\n                         el.setAttribute('data-id', id);\n"
                 }
             ],
             "date": 1653275192935,

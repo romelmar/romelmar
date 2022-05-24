@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 20,
+            "activePatchIndex": 35,
             "patches": [
                 {
                     "date": 1653355609662,
@@ -88,6 +88,66 @@
                 {
                     "date": 1653373821582,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,12 +24,9 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function create(Request $request)\n     {\n-        $input = $request->all();\n-        Log::info($input);\n \n-        // DocRoutes::create($input);\n         try {\n             $DocRoutes = new DocRoutes;\n             $DocRoutes->date_received = $request->date_received;\n             $DocRoutes->doc_id = $request->doc_id;\n"
+                },
+                {
+                    "date": 1653379774635,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -71,9 +71,10 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function edit(DocRoute $docRoute)\n     {\n-        //\n+        \n+        Log::info($docRoute);\n     }\n \n     /**\n      * Update the specified resource in storage.\n"
+                },
+                {
+                    "date": 1653380070292,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -58,9 +58,9 @@\n      *\n      * @param  \\App\\Models\\DocRoute  $docRoute\n      * @return \\Illuminate\\Http\\Response\n      */\n-    public function show(DocRoute $docRoute)\n+    public function show(DocRoutes $docRoute)\n     {\n         //\n     }\n \n@@ -69,9 +69,9 @@\n      *\n      * @param  \\App\\Models\\DocRoute  $docRoute\n      * @return \\Illuminate\\Http\\Response\n      */\n-    public function edit(DocRoute $docRoute)\n+    public function edit(DocRoutes $docRoute)\n     {\n         \n         Log::info($docRoute);\n     }\n@@ -93,9 +93,9 @@\n      *\n      * @param  \\App\\Models\\DocRoute  $docRoute\n      * @return \\Illuminate\\Http\\Response\n      */\n-    public function destroy(DocRoute $docRoute)\n+    public function destroy(DocRoutes $docRoute)\n     {\n         //\n     }\n }\n"
+                },
+                {
+                    "date": 1653380236551,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -69,12 +69,12 @@\n      *\n      * @param  \\App\\Models\\DocRoute  $docRoute\n      * @return \\Illuminate\\Http\\Response\n      */\n-    public function edit(DocRoutes $docRoute)\n+    public function edit($docRoute_id)\n     {\n         \n-        Log::info($docRoute);\n+        Log::info($docRoute_id);\n     }\n \n     /**\n      * Update the specified resource in storage.\n"
+                },
+                {
+                    "date": 1653380831459,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -69,12 +69,12 @@\n      *\n      * @param  \\App\\Models\\DocRoute  $docRoute\n      * @return \\Illuminate\\Http\\Response\n      */\n-    public function edit($docRoute_id)\n+    public function edit(Request $request)\n     {\n         \n-        Log::info($docRoute_id);\n+        Log::info($request->all());\n     }\n \n     /**\n      * Update the specified resource in storage.\n"
+                },
+                {
+                    "date": 1653380953338,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -72,9 +72,10 @@\n      */\n     public function edit(Request $request)\n     {\n         \n-        Log::info($request->all());\n+        Log::info($request->id);\n+        // $docRoutes = DocRoutes::where('doc_id',$doc_id)->get();\n     }\n \n     /**\n      * Update the specified resource in storage.\n"
+                },
+                {
+                    "date": 1653380979424,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -71,11 +71,9 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function edit(Request $request)\n     {\n-        \n-        Log::info($request->id);\n-        // $docRoutes = DocRoutes::where('doc_id',$doc_id)->get();\n+        $docRoutes = DocRoutes::where('doc_id',$request->id)->get();\n     }\n \n     /**\n      * Update the specified resource in storage.\n"
+                },
+                {
+                    "date": 1653381279121,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -71,9 +71,11 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function edit(Request $request)\n     {\n+        \n         $docRoutes = DocRoutes::where('doc_id',$request->id)->get();\n+        Log::info($docRoutes);\n     }\n \n     /**\n      * Update the specified resource in storage.\n"
+                },
+                {
+                    "date": 1653381372190,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -72,9 +72,10 @@\n      */\n     public function edit(Request $request)\n     {\n         \n-        $docRoutes = DocRoutes::where('doc_id',$request->id)->get();\n+        $where = array('id' => $request->id);\n+        $docRoutes  = DocRoutes::where($where)->first();\n         Log::info($docRoutes);\n     }\n \n     /**\n@@ -83,9 +84,9 @@\n      * @param  \\Illuminate\\Http\\Request  $request\n      * @param  \\App\\Models\\DocRoute  $docRoute\n      * @return \\Illuminate\\Http\\Response\n      */\n-    public function update(Request $request, DocRoute $docRoute)\n+    public function update(Request $request, DocRoutes $docRoute)\n     {\n         //\n     }\n \n"
+                },
+                {
+                    "date": 1653381686901,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -74,8 +74,13 @@\n     {\n         \n         $where = array('id' => $request->id);\n         $docRoutes  = DocRoutes::where($where)->first();\n+        $division = DocRoutes::find($request->id)->division->name;\n+        $focal = DocRoutes::find($request->id)->employee->fullname();\n+        $date_received = DocRoutes::find($request->id)->meansOfReceiving->name;\n+        $doctype = DocRoutes::find($request->id)->docType->name;\n+\n         Log::info($docRoutes);\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1653381835276,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -76,10 +76,10 @@\n         $where = array('id' => $request->id);\n         $docRoutes  = DocRoutes::where($where)->first();\n         $division = DocRoutes::find($request->id)->division->name;\n         $focal = DocRoutes::find($request->id)->employee->fullname();\n-        $date_received = DocRoutes::find($request->id)->meansOfReceiving->name;\n-        $doctype = DocRoutes::find($request->id)->docType->name;\n+        $date_received = DocRoutes::find($request->id)->date_received;\n+        $action = DocRoutes::find($request->id)->action;\n \n         Log::info($docRoutes);\n     }\n \n"
+                },
+                {
+                    "date": 1653381935237,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -79,9 +79,18 @@\n         $focal = DocRoutes::find($request->id)->employee->fullname();\n         $date_received = DocRoutes::find($request->id)->date_received;\n         $action = DocRoutes::find($request->id)->action;\n \n-        Log::info($docRoutes);\n+        // Log::info($docRoutes);\n+\n+        return response()->json([\n+            'status' => \"success\",\n+            $docRoutes,\n+            'division' =>  $division,\n+            'employee' =>  $focal,\n+            'date_received' =>  $date_received,\n+            'action' =>  $action,\n+        ]);\n     }\n \n     /**\n      * Update the specified resource in storage.\n"
+                },
+                {
+                    "date": 1653382362257,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -86,9 +86,9 @@\n             'status' => \"success\",\n             $docRoutes,\n             'division' =>  $division,\n             'employee' =>  $focal,\n-            'date_received' =>  $date_received,\n+            // 'date_received' =>  $date_received,\n             'action' =>  $action,\n         ]);\n     }\n \n"
+                },
+                {
+                    "date": 1653382373992,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -86,9 +86,9 @@\n             'status' => \"success\",\n             $docRoutes,\n             'division' =>  $division,\n             'employee' =>  $focal,\n-            // 'date_received' =>  $date_received,\n+            'date_received' =>  $date_received,\n             'action' =>  $action,\n         ]);\n     }\n \n"
+                },
+                {
+                    "date": 1653382497133,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -79,10 +79,11 @@\n         $focal = DocRoutes::find($request->id)->employee->fullname();\n         $date_received = DocRoutes::find($request->id)->date_received;\n         $action = DocRoutes::find($request->id)->action;\n \n-        // Log::info($docRoutes);\n+        $collection = collect($docRoutes[0]);\n \n+        \n         return response()->json([\n             'status' => \"success\",\n             $docRoutes,\n             'division' =>  $division,\n"
+                },
+                {
+                    "date": 1653382688991,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -80,9 +80,9 @@\n         $date_received = DocRoutes::find($request->id)->date_received;\n         $action = DocRoutes::find($request->id)->action;\n \n         $collection = collect($docRoutes[0]);\n-\n+        Log::info($docRoutes[0]);\n         \n         return response()->json([\n             'status' => \"success\",\n             $docRoutes,\n"
                 }
             ],
             "date": 1653355609662,

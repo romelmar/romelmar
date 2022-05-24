@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 46,
+            "activePatchIndex": 53,
             "patches": [
                 {
                     "date": 1653292587848,
@@ -192,6 +192,34 @@
                 {
                     "date": 1653374613829,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -112,9 +112,9 @@\n \n     public function fetchAllRoute($doc_id)\n     {\n         // $docRoutes = DocRoutes::all();\n-        $docRoutes = DocRoutes::where('doc_id',26)->get();\n+        $docRoutes = DocRoutes::where('doc_id',$doc_id)->get();\n         \n         $fields = [\n             'Division',\n             'Action taken',\n"
+                },
+                {
+                    "date": 1653379636778,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -139,9 +139,9 @@\n                 <td><p class=\"title\">' . $docRoute->division->name . '</p><small>'.$docRoute->employee->fullname().'</small></td>\n                 <td><small>'. $docRoute->date_received.'</small><p class=\"title\">' .$docRoute->action. '</p></td>\n \n                 <td>\n-                        <button type=\"button\" id=\"' . $docRoute->id . '\"  class=\"btn text-success mx-1 editIcon editDoc\"  data-toggle=\"modal\" data-target=\"#editDocumentModal\">\n+                        <button type=\"button\" id=\"' . $docRoute->id . '\"  class=\"btn text-success mx-1 editIcon editDoc\"  data-toggle=\"modal\" data-target=\"#editRouteModal\">\n                         <i class=\"bi-pencil-square h4\"></i>\n                         </button>\n                 </td>\n               </tr>';\n"
+                },
+                {
+                    "date": 1653379718946,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -479,21 +479,8 @@\n      */\n     public function edit(Request $request)\n     {\n         $input = $request->all();\n-        // $images = Document::find($document->id)->images;\n-\n-\n-        // $today =  Carbon::now('Asia/Manila')->format('Y-m-d');\n-        // $overdues  =  Document::all()->where(\"deadline\", \"<\", $today)->count();\n-        // $dueToday  =  Document::all()->where(\"deadline\", \"==\", $today)->count();\n-        // $recent  =  Document::all()->where(\"deadline\", \">\", $today)->count();\n-\n-        // 'origin_id' => $origin_id,\n-        // 'employee_id' => $employee_id,\n-        // 'mor_id' => $mor_id,\n-        // 'doctype_id' => $doctype_id\n-\n         $where = array('id' => $request->id);\n         $document  = Document::where($where)->first();\n         $origin = Document::find($request->id)->origin_office->name;\n         $focal = Document::find($request->id)->employee->fullname();\n"
+                },
+                {
+                    "date": 1653379724824,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -491,13 +491,8 @@\n         $collection = collect($document[0]);\n \n         $merged = $collection->merge($origin);\n \n-        // $merged->all();\n-\n-        // Log::info( $document );\n-\n-        // return Response::json($document);\n         return response()->json([\n             'status' => 200,\n             $document,\n             'origin' =>  $origin,\n"
+                },
+                {
+                    "date": 1653382391290,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -487,9 +487,9 @@\n         $mor = Document::find($request->id)->meansOfReceiving->name;\n         $doctype = Document::find($request->id)->docType->name;\n \n \n-        $collection = collect($document[0]);\n+        // $collection = collect($document[0]);\n \n         $merged = $collection->merge($origin);\n \n         return response()->json([\n"
+                },
+                {
+                    "date": 1653382408640,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -487,9 +487,9 @@\n         $mor = Document::find($request->id)->meansOfReceiving->name;\n         $doctype = Document::find($request->id)->docType->name;\n \n \n-        // $collection = collect($document[0]);\n+        $collection = collect($document[0]);\n \n         $merged = $collection->merge($origin);\n \n         return response()->json([\n"
+                },
+                {
+                    "date": 1653382433244,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -489,9 +489,9 @@\n \n \n         $collection = collect($document[0]);\n \n-        $merged = $collection->merge($origin);\n+        // $merged = $collection->merge($origin);\n \n         return response()->json([\n             'status' => 200,\n             $document,\n"
+                },
+                {
+                    "date": 1653382446928,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -489,9 +489,9 @@\n \n \n         $collection = collect($document[0]);\n \n-        // $merged = $collection->merge($origin);\n+        $merged = $collection->merge($origin);\n \n         return response()->json([\n             'status' => 200,\n             $document,\n"
                 }
             ],
             "date": 1653292587848,

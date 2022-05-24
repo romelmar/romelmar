@@ -101,7 +101,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 	// ----------------------------------- Doc Route -----------------------------------------------
-
+	Route::get('/route_edit', [DocRouteController::class, 'edit'])->name('edit.doc_route');
 
 	// --------------------------- SEARCH ------------------------------------------
 	Route::get('search', [AutoCompleteController::class, 'index'])->name('search');
