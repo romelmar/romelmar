@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 65,
+            "activePatchIndex": 66,
             "patches": [
                 {
                     "date": 1653292587848,
@@ -268,6 +268,10 @@
                 {
                     "date": 1653450745028,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -524,9 +524,9 @@\n     }\n \n     /**\n      * Update the specified resource in storage.\n-     *\n+     * \n      * @param  \\Illuminate\\Http\\Request  $request\n      * @param  \\App\\Models\\Document  $document\n      * @return \\Illuminate\\Http\\Response\n      */\n@@ -535,9 +535,8 @@\n         $input = $request->all();\n         $inserted = Document::where('id', $request->id)\n                     ->update($input);\n \n-\n         return response()->json([\n             'status' => 200,\n         ]);\n     }\n"
+                },
+                {
+                    "date": 1653451340796,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -503,13 +503,10 @@\n     }\n \n     public function edit_OLD(Document $document)\n     {\n-\n-        // dd( $document->id);\n         $images = Document::find($document->id)->images;\n \n-\n         $today =  Carbon::now('Asia/Manila')->format('Y-m-d');\n         $overdues  =  Document::all()->where(\"deadline\", \"<\", $today)->count();\n         $dueToday  =  Document::all()->where(\"deadline\", \"==\", $today)->count();\n         $recent  =  Document::all()->where(\"deadline\", \">\", $today)->count();\n"
                 }
             ],
             "date": 1653292587848,

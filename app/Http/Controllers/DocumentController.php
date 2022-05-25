@@ -504,10 +504,7 @@ class DocumentController extends Controller
 
     public function edit_OLD(Document $document)
     {
-
-        // dd( $document->id);
         $images = Document::find($document->id)->images;
-
 
         $today =  Carbon::now('Asia/Manila')->format('Y-m-d');
         $overdues  =  Document::all()->where("deadline", "<", $today)->count();

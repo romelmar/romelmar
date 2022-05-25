@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 61,
+            "activePatchIndex": 62,
             "patches": [
                 {
                     "date": 1653355609662,
@@ -252,6 +252,10 @@
                 {
                     "date": 1653449784274,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -102,18 +102,14 @@\n      */\n     public function update(Request $request)\n     {\n         $input = $request->all();\n-        // $inserted = DocRoutes::where('id', $request->id)\n-        //             ->update($input);\n+        $inserted = DocRoutes::where('id', $request->id)\n+                    ->update($input);\n \n-        $doc = DocRoutes::find($request->id);\n-        $doc->update($input);                    \n-\n-\n         return response()->json([\n             'status' => 200,\n-            // 'inserted' => $inserted\n+            'inserted' => $inserted\n         ]);\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1653451328225,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -79,9 +79,8 @@\n         $focal = DocRoutes::find($request->id)->employee->fullname();\n         $date_received = DocRoutes::find($request->id)->date_received;\n         $action = DocRoutes::find($request->id)->action;\n \n-\n         Log::info($docRoutes);\n         \n         return response()->json([\n             'status' => \"success\",\n"
                 }
             ],
             "date": 1653355609662,

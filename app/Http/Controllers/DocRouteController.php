@@ -80,7 +80,6 @@ class DocRouteController extends Controller
         $date_received = DocRoutes::find($request->id)->date_received;
         $action = DocRoutes::find($request->id)->action;
 
-
         Log::info($docRoutes);
         
         return response()->json([
