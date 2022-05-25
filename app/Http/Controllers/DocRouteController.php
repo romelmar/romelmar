@@ -99,7 +99,7 @@ class DocRouteController extends Controller
      * @param  \App\Models\DocRoute  $docRoute
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request) 
     {
         $input = $request->all();
         $inserted = DocRoutes::where('id', $request->id)
