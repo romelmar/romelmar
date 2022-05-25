@@ -525,7 +525,7 @@ class DocumentController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
+     * 
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Document  $document
      * @return \Illuminate\Http\Response
