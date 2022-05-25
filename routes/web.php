@@ -102,7 +102,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 	// ----------------------------------- Doc Route -----------------------------------------------
 	Route::get('/route_edit', [DocRouteController::class, 'edit'])->name('edit.doc_route');
-
+	Route::put('/doc_route_update', [DocRouteController::class, 'update'])->name('update.doc_route');
+	
 	// --------------------------- SEARCH ------------------------------------------
 	Route::get('search', [AutoCompleteController::class, 'index'])->name('search');
 	Route::get('autocomplete', [AutoCompleteController::class, 'autocomplete'])->name('autocomplete');

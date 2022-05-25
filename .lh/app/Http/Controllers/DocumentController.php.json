@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 53,
+            "activePatchIndex": 64,
             "patches": [
                 {
                     "date": 1653292587848,
@@ -220,6 +220,50 @@
                 {
                     "date": 1653382446928,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -489,9 +489,9 @@\n \n \n         $collection = collect($document[0]);\n \n-        // $merged = $collection->merge($origin);\n+        $merged = $collection->merge($origin);\n \n         return response()->json([\n             'status' => 200,\n             $document,\n"
+                },
+                {
+                    "date": 1653441199305,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -487,11 +487,11 @@\n         $mor = Document::find($request->id)->meansOfReceiving->name;\n         $doctype = Document::find($request->id)->docType->name;\n \n \n-        $collection = collect($document[0]);\n+        // $collection = collect($document[0]);\n \n-        $merged = $collection->merge($origin);\n+        // $merged = $collection->merge($origin);\n \n         return response()->json([\n             'status' => 200,\n             $document,\n"
+                },
+                {
+                    "date": 1653441229177,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -487,11 +487,11 @@\n         $mor = Document::find($request->id)->meansOfReceiving->name;\n         $doctype = Document::find($request->id)->docType->name;\n \n \n-        // $collection = collect($document[0]);\n+        $collection = collect($document[0]);\n \n-        // $merged = $collection->merge($origin);\n+        $merged = $collection->merge($origin);\n \n         return response()->json([\n             'status' => 200,\n             $document,\n"
+                },
+                {
+                    "date": 1653441336527,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -490,8 +490,9 @@\n \n         $collection = collect($document[0]);\n \n         $merged = $collection->merge($origin);\n+        Log::info($merged);\n \n         return response()->json([\n             'status' => 200,\n             $document,\n"
+                },
+                {
+                    "date": 1653441376355,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -490,9 +490,9 @@\n \n         $collection = collect($document[0]);\n \n         $merged = $collection->merge($origin);\n-        Log::info($merged);\n+        Log::info($collection);\n \n         return response()->json([\n             'status' => 200,\n             $document,\n"
+                },
+                {
+                    "date": 1653441401888,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -490,9 +490,9 @@\n \n         $collection = collect($document[0]);\n \n         $merged = $collection->merge($origin);\n-        Log::info($collection);\n+        Log::info($$document[0]);\n \n         return response()->json([\n             'status' => 200,\n             $document,\n"
+                },
+                {
+                    "date": 1653441435532,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -490,9 +490,9 @@\n \n         $collection = collect($document[0]);\n \n         $merged = $collection->merge($origin);\n-        Log::info($$document[0]);\n+        Log::info($document);\n \n         return response()->json([\n             'status' => 200,\n             $document,\n"
+                },
+                {
+                    "date": 1653448187537,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -536,9 +536,9 @@\n \n         $input = $request->all();\n         Log::info($input);\n \n-        $doc = Document::find($request->id);\n+        $doc = Document::find(5);\n         $input = $request->all();\n         $doc->update($input);\n \n         return response()->json([\n"
+                },
+                {
+                    "date": 1653448400311,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -490,9 +490,8 @@\n \n         $collection = collect($document[0]);\n \n         $merged = $collection->merge($origin);\n-        Log::info($document);\n \n         return response()->json([\n             'status' => 200,\n             $document,\n@@ -536,9 +535,9 @@\n \n         $input = $request->all();\n         Log::info($input);\n \n-        $doc = Document::find(5);\n+        $doc = Document::find($request->id);\n         $input = $request->all();\n         $doc->update($input);\n \n         return response()->json([\n"
+                },
+                {
+                    "date": 1653449594543,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -532,15 +532,20 @@\n      */\n     public function update(Request $request)\n     {\n \n-        $input = $request->all();\n-        Log::info($input);\n+        // $input = $request->all();\n+        // Log::info($input);\n \n-        $doc = Document::find($request->id);\n+        // $doc = Document::find($request->id);\n+        // $input = $request->all();\n+        // $doc->update($input);\n+\n         $input = $request->all();\n-        $doc->update($input);\n+        $inserted = DocRoutes::where('id', $request->id)\n+                    ->update($input);\n \n+\n         return response()->json([\n             'status' => 200,\n         ]);\n     }\n"
+                },
+                {
+                    "date": 1653449634512,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -540,9 +540,9 @@\n         // $input = $request->all();\n         // $doc->update($input);\n \n         $input = $request->all();\n-        $inserted = DocRoutes::where('id', $request->id)\n+        $inserted = Document::where('id', $request->id)\n                     ->update($input);\n \n \n         return response()->json([\n"
+                },
+                {
+                    "date": 1653449819469,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -531,16 +531,8 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function update(Request $request)\n     {\n-\n-        // $input = $request->all();\n-        // Log::info($input);\n-\n-        // $doc = Document::find($request->id);\n-        // $input = $request->all();\n-        // $doc->update($input);\n-\n         $input = $request->all();\n         $inserted = Document::where('id', $request->id)\n                     ->update($input);\n \n"
                 }
             ],
             "date": 1653292587848,

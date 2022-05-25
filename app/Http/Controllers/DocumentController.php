@@ -532,13 +532,9 @@ class DocumentController extends Controller
      */
     public function update(Request $request)
     {
-
         $input = $request->all();
-        Log::info($input);
-
-        $doc = Document::find($request->id);
-        $input = $request->all();
-        $doc->update($input);
+        $inserted = Document::where('id', $request->id)
+                    ->update($input);
 
         return response()->json([
             'status' => 200,

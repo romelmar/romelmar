@@ -13,7 +13,7 @@
                 {{-- <form> --}}
                     @csrf
                     @method('post')
-                    <input type="hidden" name="doc_id" value="{{ __($document->id) }}">
+                    <input type="hidden" name="doc_id">
                     {{-- <input type="hidden" name="doc_id" value="{{$document->id}}"> --}}
                     <div class="row">
                         <div class="col-sm-12">

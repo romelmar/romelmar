@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 35,
+            "activePatchIndex": 61,
             "patches": [
                 {
                     "date": 1653355609662,
@@ -148,6 +148,110 @@
                 {
                     "date": 1653382688991,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -80,9 +80,9 @@\n         $date_received = DocRoutes::find($request->id)->date_received;\n         $action = DocRoutes::find($request->id)->action;\n \n         $collection = collect($docRoutes[0]);\n-\n+        Log::info($docRoutes[0]);\n         \n         return response()->json([\n             'status' => \"success\",\n             $docRoutes,\n"
+                },
+                {
+                    "date": 1653439153414,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -80,9 +80,9 @@\n         $date_received = DocRoutes::find($request->id)->date_received;\n         $action = DocRoutes::find($request->id)->action;\n \n         $collection = collect($docRoutes[0]);\n-        Log::info($docRoutes[0]);\n+        Log::info($docRoutes);\n         \n         return response()->json([\n             'status' => \"success\",\n             $docRoutes,\n"
+                },
+                {
+                    "date": 1653439222705,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -72,9 +72,9 @@\n      */\n     public function edit(Request $request)\n     {\n         \n-        $where = array('id' => $request->id);\n+        $where = array('doc_id' => $request->id);\n         $docRoutes  = DocRoutes::where($where)->first();\n         $division = DocRoutes::find($request->id)->division->name;\n         $focal = DocRoutes::find($request->id)->employee->fullname();\n         $date_received = DocRoutes::find($request->id)->date_received;\n"
+                },
+                {
+                    "date": 1653439378371,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -80,9 +80,9 @@\n         $date_received = DocRoutes::find($request->id)->date_received;\n         $action = DocRoutes::find($request->id)->action;\n \n         $collection = collect($docRoutes[0]);\n-        Log::info($docRoutes);\n+        Log::info($docRoutes[0]);\n         \n         return response()->json([\n             'status' => \"success\",\n             $docRoutes,\n"
+                },
+                {
+                    "date": 1653440805796,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -73,9 +73,9 @@\n     public function edit(Request $request)\n     {\n         \n         $where = array('doc_id' => $request->id);\n-        $docRoutes  = DocRoutes::where($where)->first();\n+        $docRoutes  = DocRoutes::where($where);\n         $division = DocRoutes::find($request->id)->division->name;\n         $focal = DocRoutes::find($request->id)->employee->fullname();\n         $date_received = DocRoutes::find($request->id)->date_received;\n         $action = DocRoutes::find($request->id)->action;\n"
+                },
+                {
+                    "date": 1653441281350,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -73,16 +73,16 @@\n     public function edit(Request $request)\n     {\n         \n         $where = array('doc_id' => $request->id);\n-        $docRoutes  = DocRoutes::where($where);\n+        $docRoutes  = DocRoutes::where($where)->first();\n         $division = DocRoutes::find($request->id)->division->name;\n         $focal = DocRoutes::find($request->id)->employee->fullname();\n         $date_received = DocRoutes::find($request->id)->date_received;\n         $action = DocRoutes::find($request->id)->action;\n \n         $collection = collect($docRoutes[0]);\n-        Log::info($docRoutes[0]);\n+        Log::info($docRoutes);\n         \n         return response()->json([\n             'status' => \"success\",\n             $docRoutes,\n"
+                },
+                {
+                    "date": 1653443052223,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -80,9 +80,9 @@\n         $date_received = DocRoutes::find($request->id)->date_received;\n         $action = DocRoutes::find($request->id)->action;\n \n         $collection = collect($docRoutes[0]);\n-        Log::info($docRoutes);\n+        Log::info($request->id);\n         \n         return response()->json([\n             'status' => \"success\",\n             $docRoutes,\n"
+                },
+                {
+                    "date": 1653443075331,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -79,9 +79,9 @@\n         $focal = DocRoutes::find($request->id)->employee->fullname();\n         $date_received = DocRoutes::find($request->id)->date_received;\n         $action = DocRoutes::find($request->id)->action;\n \n-        $collection = collect($docRoutes[0]);\n+\n         Log::info($request->id);\n         \n         return response()->json([\n             'status' => \"success\",\n"
+                },
+                {
+                    "date": 1653443184172,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -72,9 +72,9 @@\n      */\n     public function edit(Request $request)\n     {\n         \n-        $where = array('doc_id' => $request->id);\n+        $where = array('id' => $request->id);\n         $docRoutes  = DocRoutes::where($where)->first();\n         $division = DocRoutes::find($request->id)->division->name;\n         $focal = DocRoutes::find($request->id)->employee->fullname();\n         $date_received = DocRoutes::find($request->id)->date_received;\n"
+                },
+                {
+                    "date": 1653443197884,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -80,9 +80,9 @@\n         $date_received = DocRoutes::find($request->id)->date_received;\n         $action = DocRoutes::find($request->id)->action;\n \n \n-        Log::info($request->id);\n+        Log::info(docRoutes);\n         \n         return response()->json([\n             'status' => \"success\",\n             $docRoutes,\n"
+                },
+                {
+                    "date": 1653443204381,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -80,9 +80,9 @@\n         $date_received = DocRoutes::find($request->id)->date_received;\n         $action = DocRoutes::find($request->id)->action;\n \n \n-        Log::info(docRoutes);\n+        Log::info($docRoutes);\n         \n         return response()->json([\n             'status' => \"success\",\n             $docRoutes,\n"
+                },
+                {
+                    "date": 1653446527223,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -101,9 +101,18 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function update(Request $request, DocRoutes $docRoute)\n     {\n-        //\n+        // $input = $request->all();\n+        // Log::info($input);\n+\n+        $doc = DocRoutes::find($request->id);\n+        $input = $request->all();\n+        $doc->update($input);\n+\n+        return response()->json([\n+            'status' => 200,\n+        ]);\n     }\n \n     /**\n      * Remove the specified resource from storage.\n"
+                },
+                {
+                    "date": 1653446558824,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -101,10 +101,10 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function update(Request $request, DocRoutes $docRoute)\n     {\n-        // $input = $request->all();\n-        // Log::info($input);\n+        $input = $request->all();\n+        Log::info($input);\n \n         $doc = DocRoutes::find($request->id);\n         $input = $request->all();\n         $doc->update($input);\n"
+                },
+                {
+                    "date": 1653446790461,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -99,9 +99,9 @@\n      * @param  \\Illuminate\\Http\\Request  $request\n      * @param  \\App\\Models\\DocRoute  $docRoute\n      * @return \\Illuminate\\Http\\Response\n      */\n-    public function update(Request $request, DocRoutes $docRoute)\n+    public function update(Request $request)\n     {\n         $input = $request->all();\n         Log::info($input);\n \n"
+                },
+                {
+                    "date": 1653447736948,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -106,12 +106,13 @@\n         Log::info($input);\n \n         $doc = DocRoutes::find($request->id);\n         $input = $request->all();\n-        $doc->update($input);\n+        $inserted = $doc->update($input);\n \n         return response()->json([\n             'status' => 200,\n+            'inserted' => $inserted\n         ]);\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1653448430427,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -104,9 +104,9 @@\n     {\n         $input = $request->all();\n         Log::info($input);\n \n-        $doc = DocRoutes::find($request->id);\n+        $doc = DocRoutes::find(5);\n         $input = $request->all();\n         $inserted = $doc->update($input);\n \n         return response()->json([\n"
+                },
+                {
+                    "date": 1653449044557,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -104,11 +104,11 @@\n     {\n         $input = $request->all();\n         Log::info($input);\n \n-        $doc = DocRoutes::find(5);\n+        $DocRoutes = DocRoutes::find(5);\n         $input = $request->all();\n-        $inserted = $doc->update($input);\n+        $inserted = $DocRoutes->update($input);\n \n         return response()->json([\n             'status' => 200,\n             'inserted' => $inserted\n"
+                },
+                {
+                    "date": 1653449403130,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -108,8 +108,13 @@\n         $DocRoutes = DocRoutes::find(5);\n         $input = $request->all();\n         $inserted = $DocRoutes->update($input);\n \n+\n+        $affected = DocRoutes::where('id', 5)\n+              ->update(input);\n+\n+\n         return response()->json([\n             'status' => 200,\n             'inserted' => $inserted\n         ]);\n"
+                },
+                {
+                    "date": 1653449420710,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -104,15 +104,15 @@\n     {\n         $input = $request->all();\n         Log::info($input);\n \n-        $DocRoutes = DocRoutes::find(5);\n-        $input = $request->all();\n-        $inserted = $DocRoutes->update($input);\n+        // $DocRoutes = DocRoutes::find(5);\n+        // $input = $request->all();\n+        // $inserted = $DocRoutes->update($input);\n \n \n         $affected = DocRoutes::where('id', 5)\n-              ->update(input);\n+              ->update($input);\n \n \n         return response()->json([\n             'status' => 200,\n"
+                },
+                {
+                    "date": 1653449434350,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -109,9 +109,9 @@\n         // $input = $request->all();\n         // $inserted = $DocRoutes->update($input);\n \n \n-        $affected = DocRoutes::where('id', 5)\n+        $inserted = DocRoutes::where('id', 5)\n               ->update($input);\n \n \n         return response()->json([\n"
+                },
+                {
+                    "date": 1653449465048,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -110,9 +110,9 @@\n         // $inserted = $DocRoutes->update($input);\n \n \n         $inserted = DocRoutes::where('id', 5)\n-              ->update($input);\n+                    ->update($input);\n \n \n         return response()->json([\n             'status' => 200,\n"
+                },
+                {
+                    "date": 1653449486559,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -109,9 +109,9 @@\n         // $input = $request->all();\n         // $inserted = $DocRoutes->update($input);\n \n \n-        $inserted = DocRoutes::where('id', 5)\n+        $inserted = DocRoutes::where('id', $request->id)\n                     ->update($input);\n \n \n         return response()->json([\n"
+                },
+                {
+                    "date": 1653449539798,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -102,15 +102,8 @@\n      */\n     public function update(Request $request)\n     {\n         $input = $request->all();\n-        Log::info($input);\n-\n-        // $DocRoutes = DocRoutes::find(5);\n-        // $input = $request->all();\n-        // $inserted = $DocRoutes->update($input);\n-\n-\n         $inserted = DocRoutes::where('id', $request->id)\n                     ->update($input);\n \n \n"
+                },
+                {
+                    "date": 1653449709776,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -102,12 +102,15 @@\n      */\n     public function update(Request $request)\n     {\n         $input = $request->all();\n-        $inserted = DocRoutes::where('id', $request->id)\n-                    ->update($input);\n+        // $inserted = DocRoutes::where('id', $request->id)\n+        //             ->update($input);\n \n+        $DocRoutes = DocRoutes::find($request->id);\n+        $DocRoutes->update($input);                    \n \n+\n         return response()->json([\n             'status' => 200,\n             'inserted' => $inserted\n         ]);\n"
+                },
+                {
+                    "date": 1653449719533,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -106,9 +106,9 @@\n         // $inserted = DocRoutes::where('id', $request->id)\n         //             ->update($input);\n \n         $DocRoutes = DocRoutes::find($request->id);\n-        $DocRoutes->update($input);                    \n+        $inserted = $DocRoutes->update($input);                    \n \n \n         return response()->json([\n             'status' => 200,\n"
+                },
+                {
+                    "date": 1653449761553,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -105,15 +105,15 @@\n         $input = $request->all();\n         // $inserted = DocRoutes::where('id', $request->id)\n         //             ->update($input);\n \n-        $DocRoutes = DocRoutes::find($request->id);\n-        $inserted = $DocRoutes->update($input);                    \n+        $doc = DocRoutes::find($request->id);\n+        $doc->update($input);                    \n \n \n         return response()->json([\n             'status' => 200,\n-            'inserted' => $inserted\n+            // 'inserted' => $inserted\n         ]);\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1653449784274,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -102,18 +102,14 @@\n      */\n     public function update(Request $request)\n     {\n         $input = $request->all();\n-        // $inserted = DocRoutes::where('id', $request->id)\n-        //             ->update($input);\n+        $inserted = DocRoutes::where('id', $request->id)\n+                    ->update($input);\n \n-        $doc = DocRoutes::find($request->id);\n-        $doc->update($input);                    \n-\n-\n         return response()->json([\n             'status' => 200,\n-            // 'inserted' => $inserted\n+            'inserted' => $inserted\n         ]);\n     }\n \n     /**\n"
                 }
             ],
             "date": 1653355609662,

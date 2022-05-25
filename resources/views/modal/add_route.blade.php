@@ -3,7 +3,7 @@
     <div class="modal-dialog small" role="document">
         <div class="modal-content card shadow">
             <div class="modal-header card-header card-header-primary d-flex justify-content-between align-items-center">
-                <h5 class="modal-title"> {{ __('Update Route') }}</h5>
+                <h5 class="modal-title"> {{ __('Add Route') }}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

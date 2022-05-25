@@ -80,8 +80,8 @@ class DocRouteController extends Controller
         $date_received = DocRoutes::find($request->id)->date_received;
         $action = DocRoutes::find($request->id)->action;
 
-        $collection = collect($docRoutes[0]);
-        Log::info($docRoutes[0]);
+
+        Log::info($docRoutes);
         
         return response()->json([
             'status' => "success",
@@ -100,9 +100,16 @@ class DocRouteController extends Controller
      * @param  \App\Models\DocRoute  $docRoute
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DocRoutes $docRoute)
+    public function update(Request $request)
     {
-        //
+        $input = $request->all();
+        $inserted = DocRoutes::where('id', $request->id)
+                    ->update($input);
+
+        return response()->json([
+            'status' => 200,
+            'inserted' => $inserted
+        ]);
     }
 
     /**

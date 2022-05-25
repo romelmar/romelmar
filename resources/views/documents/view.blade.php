@@ -174,8 +174,8 @@
             });
         });
 
-// ----------------------- edit -------------------------------------------
-$(document).on('click', '.editIcon', function(e) {
+        // ----------------------- edit Route -------------------------------------------
+        $(document).on('click', '.editIcon', function(e) {
             e.preventDefault();
 
             let id = $(this).attr('id');
@@ -189,10 +189,11 @@ $(document).on('click', '.editIcon', function(e) {
                 success: function(response) {
 
                     dr = response[0].date_received;
-                    console.log(response);
+                    $("#editRouteModal textarea[name='action'").val(response.action);
+
                     for (let x in response[0]) {
 
-                        var el = document.querySelector('#updateDocument');
+                        var el = document.querySelector('#editRoute');
                         el.setAttribute('data-id', id);
 
                         if (x.search("_id") < 0) $("#editRouteModal #" + x).val(response[0][x]);
@@ -205,7 +206,52 @@ $(document).on('click', '.editIcon', function(e) {
                     }
                 }
             });
-        });        
+        });
+
+        $("button#editRoute").click(function(e) {
+            e.preventDefault();
+
+            var date_received = $("#editRouteModal input[name=date_received]").val();
+            var action = $("#editRouteModal textarea[name=action]").val();
+            var division_id = $("#editRouteModal input[name=division_id]").val();
+            var employee_id = $("#editRouteModal input[name=employee_id]").val();
+
+            var el = document.querySelector("button#editRoute");
+            var id = el.getAttribute('data-id');
+
+            $(this).text('Updating...');
+
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('update.doc_route') }}',
+                data: {
+
+                    date_received: date_received,
+                    action: action,
+                    division_id: division_id,
+                    employee_id: employee_id,
+                    id: id
+
+                },
+                method: 'put',
+                success: function(data) {
+                    // console.log(data.success);
+                    if (data.status == 200) {
+                        Swal.fire(
+                            'Updated!',
+                            'Document Route Updated Successfully! ',
+                            'success'
+                        )
+                        fetchAllRoutes();
+                    }
+                    $("#editRouteModal").modal('hide');
+                    $("button#editRoute").text('Update Document');
+                    $("#add_route_form")[0].reset();
+
+                }
+            });
+        });
+
         // ----------------------------------------------------------------
         fetchAllRoutes();
 
