@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 63,
+            "activePatchIndex": 64,
             "patches": [
                 {
                     "date": 1653355609662,
@@ -260,6 +260,10 @@
                 {
                     "date": 1653451474382,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -98,9 +98,9 @@\n      * @param  \\Illuminate\\Http\\Request  $request\n      * @param  \\App\\Models\\DocRoute  $docRoute\n      * @return \\Illuminate\\Http\\Response\n      */\n-    public function update(Request $request)\n+    public function update(Request $request) \n     {\n         $input = $request->all();\n         $inserted = DocRoutes::where('id', $request->id)\n                     ->update($input);\n"
+                },
+                {
+                    "date": 1653451645633,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,5 @@\n <?php\n-\n namespace App\\Http\\Controllers;\n \n use App\\Models\\DocRoutes;\n use Illuminate\\Http\\Request;\n@@ -98,9 +97,9 @@\n      * @param  \\Illuminate\\Http\\Request  $request\n      * @param  \\App\\Models\\DocRoute  $docRoute\n      * @return \\Illuminate\\Http\\Response\n      */\n-    public function update(Request $request) \n+    public function update(Request $request)\n     {\n         $input = $request->all();\n         $inserted = DocRoutes::where('id', $request->id)\n                     ->update($input);\n"
                 }
             ],
             "date": 1653355609662,
