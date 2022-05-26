@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 85,
+            "activePatchIndex": 92,
             "patches": [
                 {
                     "date": 1653275192935,
@@ -348,6 +348,34 @@
                 {
                     "date": 1653449520614,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -238,9 +238,9 @@\n                     // console.log(data.success);\n                     if (data.status == 200) {\n                         Swal.fire(\n                             'Updated!',\n-                            'Document Route Updated Successfully! ' + data.inserted ,\n+                            'Document Route Updated Successfully! ',\n                             'success'\n                         )\n                         fetchAllRoutes();\n                     }\n"
+                },
+                {
+                    "date": 1653467278618,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -105,9 +105,9 @@\n @endsection\n @push('js')\n     <script src=\"https://unpkg.com/pdfobject@2.2.7/pdfobject.min.js\"></script>\n     <script>\n-        PDFObject.embed(\"{{ route('show-pdf', ['id' => $image->id]) }}\", \"#pdf-viewer\");\n+        PDFObject.embed(\"C:\\xampp\\htdocs\\workspace\\docmon2\\storage\\app/images/Job Opening (Asst. Professor I-(TESDAB-AP1-152-2017 - DVTS)- 2nd Level Form.pdf\", \"#pdf-viewer\");\n     </script>\n \n \n     <script type=\"text/javascript\">\n"
+                },
+                {
+                    "date": 1653467313156,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -105,9 +105,9 @@\n @endsection\n @push('js')\n     <script src=\"https://unpkg.com/pdfobject@2.2.7/pdfobject.min.js\"></script>\n     <script>\n-        PDFObject.embed(\"C:\\xampp\\htdocs\\workspace\\docmon2\\storage\\app/images/Job Opening (Asst. Professor I-(TESDAB-AP1-152-2017 - DVTS)- 2nd Level Form.pdf\", \"#pdf-viewer\");\n+        PDFObject.embed(\"{{ route('show-pdf', ['id' => $image->id]) }}\", \"#pdf-viewer\");\n     </script>\n \n \n     <script type=\"text/javascript\">\n"
+                },
+                {
+                    "date": 1653530549831,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -105,9 +105,10 @@\n @endsection\n @push('js')\n     <script src=\"https://unpkg.com/pdfobject@2.2.7/pdfobject.min.js\"></script>\n     <script>\n-        PDFObject.embed(\"{{ route('show-pdf', ['id' => $image->id]) }}\", \"#pdf-viewer\");\n+        // PDFObject.embed(\"{{ route('show-pdf', ['id' => $image->id]) }}\", \"#pdf-viewer\");\n+        PDFObject.embed(\"{{ route('show-pdf', ['id' => 26]) }}\", \"#pdf-viewer\");\n     </script>\n \n \n     <script type=\"text/javascript\">\n@@ -256,9 +257,9 @@\n         fetchAllRoutes();\n \n         function fetchAllRoutes() {\n             $.ajax({\n-                url: '{{ route('fetchAllRoute', $document->id) }}',\n+                url: '{{ route('fetchAllRoute',$document->id) }}',\n                 method: 'get',\n                 success: function(response) {\n                     $(\"#show_all_documents\").html(response);\n                     var table = $('#myTable').DataTable({\n"
+                },
+                {
+                    "date": 1653532113685,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -105,10 +105,10 @@\n @endsection\n @push('js')\n     <script src=\"https://unpkg.com/pdfobject@2.2.7/pdfobject.min.js\"></script>\n     <script>\n-        // PDFObject.embed(\"{{ route('show-pdf', ['id' => $image->id]) }}\", \"#pdf-viewer\");\n-        PDFObject.embed(\"{{ route('show-pdf', ['id' => 26]) }}\", \"#pdf-viewer\");\n+        PDFObject.embed(\"{{ route('show-pdf', ['id' => $image->id]) }}\", \"#pdf-viewer\");\n+        // PDFObject.embed(\"{{ route('show-pdf', ['id' => 26]) }}\", \"#pdf-viewer\");\n     </script>\n \n \n     <script type=\"text/javascript\">\n"
+                },
+                {
+                    "date": 1653533819632,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -105,9 +105,9 @@\n @endsection\n @push('js')\n     <script src=\"https://unpkg.com/pdfobject@2.2.7/pdfobject.min.js\"></script>\n     <script>\n-        PDFObject.embed(\"{{ route('show-pdf', ['id' => $image->id]) }}\", \"#pdf-viewer\");\n+        // PDFObject.embed(\"{{ route('show-pdf', ['id' => $image->id]) }}\", \"#pdf-viewer\");\n         // PDFObject.embed(\"{{ route('show-pdf', ['id' => 26]) }}\", \"#pdf-viewer\");\n     </script>\n \n \n"
+                },
+                {
+                    "date": 1653533869133,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -105,9 +105,9 @@\n @endsection\n @push('js')\n     <script src=\"https://unpkg.com/pdfobject@2.2.7/pdfobject.min.js\"></script>\n     <script>\n-        // PDFObject.embed(\"{{ route('show-pdf', ['id' => $image->id]) }}\", \"#pdf-viewer\");\n+        PDFObject.embed(\"{{ route('show-pdf', ['id' => $image->id]) }}\", \"#pdf-viewer\");\n         // PDFObject.embed(\"{{ route('show-pdf', ['id' => 26]) }}\", \"#pdf-viewer\");\n     </script>\n \n \n"
+                },
+                {
+                    "date": 1653534454698,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -106,9 +106,8 @@\n @push('js')\n     <script src=\"https://unpkg.com/pdfobject@2.2.7/pdfobject.min.js\"></script>\n     <script>\n         PDFObject.embed(\"{{ route('show-pdf', ['id' => $image->id]) }}\", \"#pdf-viewer\");\n-        // PDFObject.embed(\"{{ route('show-pdf', ['id' => 26]) }}\", \"#pdf-viewer\");\n     </script>\n \n \n     <script type=\"text/javascript\">\n"
                 }
             ],
             "date": 1653275192935,

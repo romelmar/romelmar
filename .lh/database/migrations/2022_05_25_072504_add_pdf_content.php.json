@@ -1,0 +1,22 @@
+{
+    "sourceFile": "database/migrations/2022_05_25_072504_add_pdf_content.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1653463909564,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1653464033499,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n      */\n     public function up()\n     {\n         Schema::table('images', function (Blueprint $table) {\n-            //\n+            $table->text('content');\n         });\n     }\n \n     /**\n@@ -25,8 +25,8 @@\n      */\n     public function down()\n     {\n         Schema::table('images', function (Blueprint $table) {\n-            $table->text('content');\n+            $table->dropColumn('content');\n         });\n     }\n }\n"
+                }
+            ],
+            "date": 1653463909564,
+            "name": "Commit-0",
+            "content": "<?php\n\nuse Illuminate\\Database\\Migrations\\Migration;\nuse Illuminate\\Database\\Schema\\Blueprint;\nuse Illuminate\\Support\\Facades\\Schema;\n\nclass AddPdfContent extends Migration\n{\n    /**\n     * Run the migrations.\n     *\n     * @return void\n     */\n    public function up()\n    {\n        Schema::table('images', function (Blueprint $table) {\n            //\n        });\n    }\n\n    /**\n     * Reverse the migrations.\n     *\n     * @return void\n     */\n    public function down()\n    {\n        Schema::table('images', function (Blueprint $table) {\n            $table->text('content');\n        });\n    }\n}\n"
+        }
+    ]
+}

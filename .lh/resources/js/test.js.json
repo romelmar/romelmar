@@ -1,0 +1,18 @@
+{
+    "sourceFile": "resources/js/test.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1653457932505,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1653457932505,
+            "name": "Commit-0",
+            "content": "alert(\"here\");"
+        }
+    ]
+}

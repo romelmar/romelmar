@@ -257,7 +257,7 @@
 
         function fetchAllRoutes() {
             $.ajax({
-                url: '{{ route('fetchAllRoute', $document->id) }}',
+                url: '{{ route('fetchAllRoute',$document->id) }}',
                 method: 'get',
                 success: function(response) {
                     $("#show_all_documents").html(response);

@@ -26,7 +26,8 @@ use Carbon\Carbon;
 
 
 use Illuminate\Support\Facades\Storage;
-use mikehaertl\pdftk\Pdf;
+use mikehaertl\pdftk\Pdf as Pdf2;
+use Spatie\PdfToText\Pdf;
 
 class DocumentController extends Controller
 {
@@ -67,6 +68,7 @@ class DocumentController extends Controller
             '#',
             'Recieved',
             'Subject',
+            'Content',
             'Deadline',
             'Status',
             'Updated At',
@@ -90,6 +92,7 @@ class DocumentController extends Controller
                 <td>' . $doc->id . '</td>
                 <td>' . $doc->date_received . '</td>
                 <td>' . $doc->subject . '  </td>
+                <td>' . $doc->images[0]->content . '  </td>
                 <td>' . $doc->deadline . '</td>
                 <td>' . $doc->get_status() . '</td>
                 <td>' . $doc->updated_at . '</td>
@@ -114,7 +117,7 @@ class DocumentController extends Controller
     {
         // $docRoutes = DocRoutes::all();
         $docRoutes = DocRoutes::where('doc_id',$doc_id)->get();
-        
+
         $fields = [
             'Division',
             'Action taken',
@@ -287,7 +290,6 @@ class DocumentController extends Controller
                 $employee_id  = $employee->id;
             }
 
-
             $document = new Document;
             $document->origin_id = $origin_id;
             $document->mor_id = $mor_id;
@@ -309,7 +311,7 @@ class DocumentController extends Controller
 
     public function storeFile(Request $request)
     {
-
+        
         if ($request->file('file')) {
             $imageUpload = new Images;
             $imageUpload->document_id =  $request->document_id;
@@ -319,7 +321,10 @@ class DocumentController extends Controller
             $targetPath = $request->file('file')->storeAs('images', $imageName);
             $targetPath = storage_path('app/images/') . $imageName;
 
-            $pdf = new Pdf(
+            $path = 'C:\Program Files\Git\mingw64\bin\pdftotext';
+            $data = Pdf::getText($targetPath,$path);
+
+            $pdf = new Pdf2(
                 $targetPath,
                 [
                     'command' => 'C:\Program Files (x86)\PDFtk\bin\pdftk.exe',
@@ -338,6 +343,7 @@ class DocumentController extends Controller
                 ->saveAs($targetPath);
 
             $imageUpload->image_path = $imageName;
+            $imageUpload->content = $data;
             $imageUpload->save();
             return response()->json(
                 [
@@ -502,23 +508,6 @@ class DocumentController extends Controller
         ]);
     }
 
-    public function edit_OLD(Document $document)
-    {
-        $images = Document::find($document->id)->images;
-
-        $today =  Carbon::now('Asia/Manila')->format('Y-m-d');
-        $overdues  =  Document::all()->where("deadline", "<", $today)->count();
-        $dueToday  =  Document::all()->where("deadline", "==", $today)->count();
-        $recent  =  Document::all()->where("deadline", ">", $today)->count();
-
-        return view('documents.edit', compact(
-            'document',
-            'images',
-            'overdues',
-            'dueToday',
-            'recent'
-        ));
-    }
 
     /**
      * Update the specified resource in storage.
@@ -530,8 +519,9 @@ class DocumentController extends Controller
     public function update(Request $request)
     {
         $input = $request->all();
+        
         $inserted = Document::where('id', $request->id)
-                    ->update($input);
+            ->update($input);
 
         return response()->json([
             'status' => 200,

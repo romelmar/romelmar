@@ -19,6 +19,8 @@ use App\Models\MeansOfReceiving;
 use App\Http\Controllers\PDFController;
 use App\Models\DocRoutes;
 
+use Illuminate\Support\Facades\Log;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -125,7 +127,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('/show-pdf/{id}', function($id) {
 		$file = images::find($id);
-		// dd($file);
+		Log::info(storage_path('app/images/') . $file->image_path);
 		return response()->file(storage_path('app/images/') . $file->image_path);
 	})->name('show-pdf');
 

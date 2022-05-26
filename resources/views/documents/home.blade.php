@@ -180,7 +180,6 @@
                     }
                     $("#editDocumentModal").modal('hide');
                     $("button#updateDocument").text('Update Document');
-                    $("#update_document_form")[0].reset();
 
                 }
             });
@@ -235,19 +234,26 @@
                         "order": [
                             [5, "desc"]
                         ],
-                        columnDefs: [{
+                        columnDefs: [
+                            {
                                 "targets": [0],
                                 "visible": false,
                                 "searchable": false
                             },
+       
                             {
-                                "targets": [5],
+                                "targets": [3],
+                                "visible": false,
+                            },
+       
+                            {
+                                "targets": [6],
                                 "visible": false,
                                 "searchable": false
                             },
                             {
                                 orderable: false,
-                                targets: [4, 5]
+                                targets: [5, 6]
                             }
                         ]
                     });

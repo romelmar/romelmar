@@ -1,0 +1,22 @@
+{
+    "sourceFile": "app/Models/Document.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1653465097257,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1653466243986,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -42,9 +42,9 @@\n         return $this->hasMany(DocRoute::class);\n     }\n \n     public function images(){\n-        return $this->hasOne(images::class);\n+        return $this->hasMany(images::class);\n     }\n \n     public function statuses(){\n         return $this->hasMany(DocStatuses::class);\n"
+                }
+            ],
+            "date": 1653465097257,
+            "name": "Commit-0",
+            "content": "<?php\n\nnamespace App\\Models;\n\nuse Illuminate\\Database\\Eloquent\\Factories\\HasFactory;\nuse Illuminate\\Database\\Eloquent\\Model;\nuse App\\Models\\OriginOffice;\nuse Carbon\\Carbon;\n\nclass Document extends Model\n{\n    use HasFactory;\n    protected $fillable = [\n        'origin_id','mor_id','doctype_id','employee_id','status_id','date_received',\n        'deadline','control_number', 'subject','action_taken','required_action'\n    ];\n\n    public function origin_office()\n    {\n        return $this->belongsTo(OriginOffice::class, 'origin_id');\n    }\n\n    public function meansOfReceiving(){\n        return $this->belongsTo(meansOfReceiving::class, 'mor_id');\n    }\n\n    public function docType()\n    {\n        return $this->belongsTo(docType::class, 'doctype_id');\n    }\n\n    public function employee(){\n        // return $this->belongsTo(employee::class);\n        return $this->belongsTo(Employee::class,\"employee_id\");\n    }\n\n    // public function status(){\n    //     return $this->hasMany(Status::class);\n    // }\n\n    public function docRoutes(){\n        return $this->hasMany(DocRoute::class);\n    }\n\n    public function images(){\n        return $this->hasOne(images::class);\n    }\n\n    public function statuses(){\n        return $this->hasMany(DocStatuses::class);\n    }\n\n    public function expired(){\n        $today =  Carbon::now('Asia/Manila')->format('Y-m-d');\n        $thisweek =  Carbon::now('Asia/Manila')->addDays(6)->format('Y-m-d');\n\n        if( $this->deadline >= $today){\n            if($this->deadline < $thisweek && $this->deadline != $today) return \"success\";\n            else if( $this->deadline == $today) return \"warning\";\n            else return \"success\";\n        }\n        else return \"danger\";\n    }\n\n\n    public function get_status(){\n        $latestStatus_obj  =  DocStatus::select('status_id')->where('document_id',$this->id)->latest()->first();\n        if($latestStatus_obj){\n            $status_id  =      $latestStatus_obj->status_id;\n            $latestStatus = Status::find($status_id, ['name']);\n            return $latestStatus->name;\n        }\n        return \"No Available updates\";\n    }\n\n\n}\n"
+        }
+    ]
+}

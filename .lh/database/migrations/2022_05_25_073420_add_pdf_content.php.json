@@ -1,0 +1,18 @@
+{
+    "sourceFile": "database/migrations/2022_05_25_073420_add_pdf_content.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1653464087482,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1653464087482,
+            "name": "Commit-0",
+            "content": "<?php\n\nuse Illuminate\\Database\\Migrations\\Migration;\nuse Illuminate\\Database\\Schema\\Blueprint;\nuse Illuminate\\Support\\Facades\\Schema;\n\nclass AddPdfContent extends Migration\n{\n    /**\n     * Run the migrations.\n     *\n     * @return void\n     */\n    public function up()\n    {\n        Schema::table('images', function (Blueprint $table) {\n            $table->text('content');\n        });\n    }\n\n    /**\n     * Reverse the migrations.\n     *\n     * @return void\n     */\n    public function down()\n    {\n        Schema::table('images', function (Blueprint $table) {\n            $table->dropColumn('content');\n        });\n    }\n}\n"
+        }
+    ]
+}
