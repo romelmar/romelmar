@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 137,
+            "activePatchIndex": 138,
             "patches": [
                 {
                     "date": 1653292587848,
@@ -556,6 +556,10 @@
                 {
                     "date": 1653986669936,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -52,18 +52,19 @@\n         //      else if( $this->deadline == $today) return \"warning\";\r\n         // }\r\n         // else return \"danger\";\r\n \r\n-        $year = now()->year;\r\n+        $division = \"ROD\";\r\n+        $control_id = now()->year . \"-\" . $division;\r\n         return view('documents.home', [\r\n             // 'docs'  =>  Document::orderBy('created_at', 'desc')->paginate(10),\r\n             'overdues'  =>  Document::all()->where(\"deadline\", \"<\", $today)->count(),\r\n             'dueToday'  =>  Document::all()->where(\"deadline\", \"==\", $today)->count(),\r\n             'recent'  =>  Document::all()->where(\"deadline\", \">\", $today)->count(),\r\n             'tabAll'    =>  \"active\",\r\n             'tabOverdue'    =>  \"\",\r\n             'tabToday'  =>  \"\",\r\n-            'year'  => $year\r\n+            'control_id'  => $control_id\r\n         ]);\r\n     }\r\n \r\n     public function fetchAll()\r\n"
+                },
+                {
+                    "date": 1654138598530,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -37,10 +37,18 @@\n      * @return \\Illuminate\\Http\\Response\r\n      */\r\n \r\n     public function masterlist(){\r\n-        \r\n-        return view('masterlist');\r\n+        $today =  Carbon::now('Asia/Manila')->format('Y-m-d');\r\n+        $thisweek =  Carbon::now('Asia/Manila')->addDays(6)->format('Y-m-d');\r\n+        return view('masterlist',[\r\n+            'overdues'  =>  Document::all()->where(\"deadline\", \"<\", $today)->count(),\r\n+            'dueToday'  =>  Document::all()->where(\"deadline\", \"==\", $today)->count(),\r\n+            'recent'  =>  Document::all()->where(\"deadline\", \">\", $today)->count(),\r\n+            'tabAll'    =>  \"active\",\r\n+            'tabOverdue'    =>  \"\",\r\n+            'tabToday'  =>  \"\",\r\n+        ]);\r\n     } \r\n \r\n     public function index()\r\n     {\r\n"
                 }
             ],
             "date": 1653292587848,

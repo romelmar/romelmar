@@ -38,8 +38,16 @@ class DocumentController extends Controller
      */
 
     public function masterlist(){
-        
-        return view('masterlist');
+        $today =  Carbon::now('Asia/Manila')->format('Y-m-d');
+        $thisweek =  Carbon::now('Asia/Manila')->addDays(6)->format('Y-m-d');
+        return view('masterlist',[
+            'overdues'  =>  Document::all()->where("deadline", "<", $today)->count(),
+            'dueToday'  =>  Document::all()->where("deadline", "==", $today)->count(),
+            'recent'  =>  Document::all()->where("deadline", ">", $today)->count(),
+            'tabAll'    =>  "active",
+            'tabOverdue'    =>  "",
+            'tabToday'  =>  "",
+        ]);
     } 
 
     public function index()
