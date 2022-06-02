@@ -44,6 +44,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 Route::get('/home', 'App\Http\Controllers\DocumentController@index')->name('home')->middleware('auth');
+Route::get('/masterlist', 'App\Http\Controllers\DocumentController@masterlist')->name('masterlist')->middleware('auth');
 
 Route::group(['middleware' => 'auth'], function () {
 	Route::get('table-list', function () {
@@ -137,6 +138,9 @@ Route::get('download-pdf', [PDFController::class, 'downloadPDF']);
 // --------------------------------- ajax ----------------------------------------------
 // Route::post('/store', [EmployeeController::class, 'store'])->name('store');
 Route::get('/fetchall', [DocumentController::class, 'fetchAll'])->name('fetchAll');
+Route::get('/fetchall', [DocumentController::class, 'fetchAll'])->name('fetchAll.doc');
+// Route::get('/doc_edit', [DocumentController::class, 'edit'])->name('edit.doc');
+
 Route::get('/fetchallroute/{doc_id}', [DocumentController::class, 'fetchAllRoute'])->name('fetchAllRoute');
 Route::delete('/delete', [EmployeeController::class, 'delete'])->name('delete');
 Route::get('/edit', [EmployeeController::class, 'edit'])->name('edit');

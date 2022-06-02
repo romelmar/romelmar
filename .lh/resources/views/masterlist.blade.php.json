@@ -1,0 +1,22 @@
+{
+    "sourceFile": "resources/views/masterlist.blade.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1653977729447,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1653977744040,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,10 +23,10 @@\n                 </div>\r\n             </div>\r\n \r\n             {{-- Document modal start --}}\r\n-            @include('layouts.document.add')\r\n-            @include('layouts.document.edit')\r\n+            {{-- @include('layouts.document.add')\r\n+            @include('layouts.document.edit') --}}\r\n             {{-- Document modal end --}}\r\n         </div>\r\n     </div>\r\n @endsection\r\n"
+                }
+            ],
+            "date": 1653977729447,
+            "name": "Commit-0",
+            "content": "@extends('layouts.app', ['activePage' => 'dashboard', 'titlePage' => __('Dashboard')])\r\n\r\n@section('content')\r\n    <div class=\"content\">\r\n        <div class=\"container-fluid\">\r\n            @include('layouts.components.status_nav')\r\n            @include('layouts.components.notification')\r\n            <div class=\"row my-5\">\r\n                <div class=\"col-lg-12\">\r\n                    <div class=\"card shadow\">\r\n                        <div class=\"card-header card-header-primary d-flex justify-content-between align-items-center\">\r\n                            <h3 class=\"text-light\">{{ __('Documents') }}</h3>\r\n                            {{-- <button type=\"button\"  class=\"btn btn-light\"  data-toggle=\"modal\" data-target=\"#addDocumentModal\"> --}}\r\n                            <button type=\"button\" class=\"btn btn-light\" data-toggle=\"modal\" data-target=\"#addDocumentModal\">\r\n                                <i class=\"bi-plus-circle me-2\"></i> Add New Document</button>\r\n                        </div>\r\n\r\n                        <div class=\"card-body \" id=\"show_all_documents\">\r\n                            {{-- @include('layouts.components.loader') --}}\r\n\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n\r\n            {{-- Document modal start --}}\r\n            @include('layouts.document.add')\r\n            @include('layouts.document.edit')\r\n            {{-- Document modal end --}}\r\n        </div>\r\n    </div>\r\n@endsection\r\n@push('footer')\r\n    @include('scripts.document_add')\r\n@endpush\r\n\r\n@push('js')\r\n    <script>\r\n        $(document).ready(function() {\r\n            // Javascript method's body can be found in assets/js/demos.js\r\n            md.initDashboardPageCharts();\r\n            if ($('.alert').length) {\r\n                setInterval(() => {\r\n                    $('.alert').addClass(\"fadeOutUp\");\r\n                }, 3000);\r\n\r\n            }\r\n        });\r\n    </script>\r\n\r\n    <script src=\"{{ asset('auto.js') }}\"></script>\r\n\r\n@endpush\r\n"
+        }
+    ]
+}

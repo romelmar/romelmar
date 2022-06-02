@@ -17,69 +17,64 @@
                     enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" class="document_id" name="document_id" id="document_id" value="">
+                    <input type="hidden" name="employee_id">
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="row">
+                                <div class="col ">
+                                    <div class="form-group">
+                                        <label for="doctype">Document Type</label>
+                                        <input placeholder="Document Type" data-db="doctype" type="text" id="doctype_id"
+                                            name="doctype" class="form-control autocomp" placeholder="" required="true"
+                                            aria-required="true">
+                                        <input type="hidden" name="doctype_id">
+                                    </div>
+
+                                </div>
+                            </div>                            
+                            <div class="row">
+                               
                                 <div class="col">
-                                    <input type="text" id="date_received" name="date_received"
-                                        class="form-control datepicker form-control-sm" placeholder="Date received"
+                                    <div class="form-group">
+                                        <label for="date_received">Date received</label>
+                                        <input type="text" id="date_received" name="date_received"
+                                        class="form-control datepicker" placeholder="Date received"
                                         required="true" aria-required="true">
+                                    </div>
+
                                 </div>
                                 <div class="col">
-                                    <input type="text" id="deadline" name="deadline"
-                                        class="form-control datepicker form-control-sm" placeholder="Deadline"
+                                    <div class="form-group">
+                                        <label for="deadline">Deadline</label>
+                                        <input type="text" id="deadline" name="deadline"
+                                        class="form-control datepicker" placeholder="Deadline"
                                         required="true" aria-required="true">
+                                    </div>
+
                                 </div>
                             </div>
+
                             <div class="row">
                                 <div class="col">
-                                    <input
-                                        class="form-control{{ $errors->has('subject') ? ' is-invalid' : '' }} form-control-sm"
-                                        name="subject" id="input-subject" type="text"
-                                        placeholder="{{ __('Subject') }}" required="true" aria-required="true" />
-                                    @if ($errors->has('subject'))
-                                        <span id="name-error" class="error text-danger"
-                                            for="input-name">{{ $errors->first('subject') }}</span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <input
-                                        class="form-control{{ $errors->has('control_number') ? ' is-invalid' : '' }} form-control-sm"
-                                        name="control_number" id="input-control_number" type="text"
-                                        placeholder="{{ __('Control number') }}" required="true"
-                                        aria-required="true" />
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <input placeholder="Origin Office" data-db="OriginOffice" type="text" id="origin_id"
+                                    <div class="form-group">
+                                        <label for="origin">Origin Office</label>
+                                        <input placeholder="Origin Office of the Document" data-db="OriginOffice" type="text" id="origin_id"
                                         name="origin" class="form-control autocomp" required="true"
                                         aria-required="true">
                                     <input type="hidden" name="origin_id">
+                                    </div>
+
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <input placeholder="Focal" data-db="employee" type="text" id="employee_id"
-                                        name="focal" class="form-control autocomp" required="true" aria-required="true">
-                                    <input type="hidden" name="employee_id">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <input placeholder="Document Type" data-db="doctype" type="text" id="doctype_id"
-                                        name="doctype" class="form-control autocomp" placeholder="" required="true"
-                                        aria-required="true">
-                                    <input type="hidden" name="doctype_id">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <input placeholder="Means of Receiving" data-db="mor" type="text" id="mor_id"
-                                        name="mor" class="form-control autocomp" required="true" aria-required="true">
-                                    <input type="hidden" name="mor_id">
+                                    <div class="form-group">
+                                        <label for="mor">Means of Receiving</label>
+                                        <input placeholder="{{ __('e.g. Email, Hard...')}}" data-db="mor" type="text" id="mor_id"
+                                            name="mor" class="form-control autocomp" required="true" aria-required="true">
+                                        <input type="hidden" name="mor_id">
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -94,6 +89,7 @@
                     </div>
 
                 </form>
+                
             </div>
 
         </div>

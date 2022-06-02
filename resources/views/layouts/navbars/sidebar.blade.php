@@ -49,6 +49,15 @@
 
         </a>
       </li>      
+      <li class="nav-item{{ $activePage == 'table' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('masterlist') }}">
+          <i class="material-icons text-primary">storage</i>
+            <p>{{ __('Master List') }}
+         
+            </p>
+
+        </a>
+      </li>      
    
       <li class="nav-item {{ ($activePage == 'docInfo' || $activePage == 'user-management') ? ' active' : '' }}">
         <a class="nav-link {{ ($activePage == 'docInfo') ? '' : 'collapsed' }}" data-toggle="collapse" href="#doccollapse" aria-expanded="{{ ($activePage == 'docInfo') ? 'true' : 'false' }}">

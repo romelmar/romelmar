@@ -1,11 +1,10 @@
-@extends('layouts.app', ['activePage' => 'dashboard', 'titlePage' => __('Dashboard')])
+@extends('layouts.app', ['activePage' => 'masterlist', 'titlePage' => __('Dashboard')])
 
 @section('content')
     <div class="content">
         <div class="container-fluid">
-            @include('layouts.components.status_nav')
             @include('layouts.components.notification')
-            <div class="row my-5">
+            <div class="row my-3">
                 <div class="col-lg-12">
                     <div class="card shadow">
                         <div class="card-header card-header-primary d-flex justify-content-between align-items-center">
@@ -16,7 +15,7 @@
                         </div>
 
                         <div class="card-body " id="show_all_documents">
-                            @include('layouts.components.loader')
+                            {{-- @include('layouts.components.loader') --}}
 
                         </div>
                     </div>
@@ -24,8 +23,8 @@
             </div>
 
             {{-- Document modal start --}}
-            @include('layouts.document.add')
-            @include('layouts.document.edit')
+            {{-- @include('layouts.document.add')
+            @include('layouts.document.edit') --}}
             {{-- Document modal end --}}
         </div>
     </div>

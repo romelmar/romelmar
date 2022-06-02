@@ -1,5 +1,4 @@
 {{-- update Document modal start --}}
-
 <div class="modal fade" id="editDocumentModal" tabindex="-1" aria-labelledby="exampleModalLabel"
     data-bs-backdrop="static" aria-hidden="true">
     <div class="modal-dialog" role="document">

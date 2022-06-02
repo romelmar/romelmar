@@ -36,6 +36,12 @@ class DocumentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function masterlist(){
+        
+        return view('masterlist');
+    } 
+
     public function index()
     {
 
@@ -47,8 +53,8 @@ class DocumentController extends Controller
         // }
         // else return "danger";
 
-        // dd( $expires_today);
-
+        $division = "ROD";
+        $control_id = now()->year . "-" . $division;
         return view('documents.home', [
             // 'docs'  =>  Document::orderBy('created_at', 'desc')->paginate(10),
             'overdues'  =>  Document::all()->where("deadline", "<", $today)->count(),
@@ -56,7 +62,8 @@ class DocumentController extends Controller
             'recent'  =>  Document::all()->where("deadline", ">", $today)->count(),
             'tabAll'    =>  "active",
             'tabOverdue'    =>  "",
-            'tabToday'  =>  ""
+            'tabToday'  =>  "",
+            'control_id'  => $control_id
         ]);
     }
 
@@ -90,7 +97,7 @@ class DocumentController extends Controller
             foreach ($docs as $doc) {
                 $output .= '<tr>
                 <td>' . $doc->id . '</td>
-                <td>' . $doc->date_received . '</td>
+                <td><p class="title">' . $doc->docType->name . '</p><small>'.$doc->date_received .'</small> </td>
                 <td>' . $doc->subject . '  </td>
                 <td>' . $doc->images[0]->content . '  </td>
                 <td>' . $doc->deadline . '</td>
